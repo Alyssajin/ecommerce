@@ -1,8 +1,7 @@
 import React from "react";
 import * as ReactDOMClient from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import VerifyUser from "./components/VerifyUser";
+
+import App from "./App";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthTokenProvider } from "./AuthTokenContext";
 import { requestedScopes } from "./constants";
@@ -23,12 +22,7 @@ root.render(
       }}
     >
       <AuthTokenProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/verify-user" element={<VerifyUser />} />
-          </Routes>
-        </BrowserRouter>
+        <App />
       </AuthTokenProvider>
     </Auth0Provider>
   </React.StrictMode>

@@ -5,14 +5,14 @@ export default function Home() {
 
   return (
     <div className="home">
-      <h1>Assignment 3</h1>
+      {/* <h1>Assignment 3</h1>
       <div>
         <button className="btn-primary" onClick={loginWithRedirect}>
           Login
         </button>
         <p>Loading: {String(isLoading)} </p>
         <p>User Authenticated: {String(isAuthenticated)}</p>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import './App.css'
 import {Navbar} from "./components/navbar/Navbar";
 import Home from "./pages/Home";
 import VerifyUser from "./components/VerifyUser";
@@ -8,11 +9,11 @@ function App() {
     return (
         <div>
             <BrowserRouter>
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/verify-user" element={<VerifyUser />} />
-                </Routes>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/verify-user" element={<VerifyUser />} />
+            </Routes>
             </BrowserRouter>
         </div>
     );

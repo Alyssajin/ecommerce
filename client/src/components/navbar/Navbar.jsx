@@ -34,10 +34,11 @@ export const Navbar = () => {
         </div>
         <hr></hr>
         <ul className="nav-menu">
-            <li>NEW</li>
-            <li>WOMEN</li>
-            <li>MAN</li>
-            <li>KIDS</li>
+            <li>New</li>
+            <li>Women</li>
+            <li>Man</li>
+            <li>Kids</li>
+            <li><span>Sale</span></li>
         </ul>
         <hr></hr>
     </div>

@@ -11,36 +11,39 @@ export const Navbar = () => {
             <button className="nav-login-btn">Sign In</button>
         </div>
         <hr></hr>
-        <div className="nav-logo">
-            <div className="nav-logo-icon">
-                <a href="/">
-                    <picture>
-                        <source media="(min-width: 1025px)" />
-                        <img src="https://images.ctfassets.net/q602vtcuu3w3/5Kn3hosoikXHaQhOx4GikS/a97e3757c14fb0539d553c0a0462f4c7/URBAN-OUTFITTERS_LOGO_2022.svg" alt="Urban Outfitters" />
-                    </picture>
-                </a>
-            </div>
-            <div className="nav-search-cart">
-                <div className="nav-search">
-                    <input type="text" placeholder="Search" />
-                    <img src={search_icon} alt="" />
+        <div className="nav-header">
+            <div className="nav-logo">
+                <div className="nav-logo-icon">
+                    <a href="/">
+                        <picture>
+                            <source media="(min-width: 1025px)" />
+                            <img src="https://images.ctfassets.net/q602vtcuu3w3/5Kn3hosoikXHaQhOx4GikS/a97e3757c14fb0539d553c0a0462f4c7/URBAN-OUTFITTERS_LOGO_2022.svg" alt="Urban Outfitters" />
+                        </picture>
+                    </a>
                 </div>
-                <div className="nav-cart">
-                    <img src={cart_icon} alt="" />
-                <div className="nav-cart-count">0</div>
-            </div>
+                <div className="nav-search-cart">
+                    <div className="nav-search">
+                        <input type="text" placeholder="Search" />
+                        <img src={search_icon} alt="" />
+                    </div>
+                    <div className="nav-cart">
+                        <img src={cart_icon} alt="" />
+                    <div className="nav-cart-count">0</div>
+                </div>
 
+            </div>
+            </div>
+            <hr></hr>
+            <ul className="nav-menu">
+                <li>New</li>
+                <li>Women</li>
+                <li>Man</li>
+                <li>Kids</li>
+                <li><span>Sale</span></li>
+            </ul>
+            <hr></hr>
         </div>
-        </div>
-        <hr></hr>
-        <ul className="nav-menu">
-            <li>New</li>
-            <li>Women</li>
-            <li>Man</li>
-            <li>Kids</li>
-            <li><span>Sale</span></li>
-        </ul>
-        <hr></hr>
+        
     </div>
   )
 }

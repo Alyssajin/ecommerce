@@ -1,5 +1,6 @@
 import React from "react"
-import cart from "../../assets/icons/cart.png"
+import cart_icon from "../../assets/icons/cart.png"
+import search_icon from "../../assets/icons/search_icon.png"
 import "./Navbar.css"
 
 export const Navbar = () => {
@@ -9,6 +10,7 @@ export const Navbar = () => {
         <div className="nav-login">
             <button className="nav-login-btn">Sign In</button>
         </div>
+        <hr></hr>
         <div className="nav-logo">
             <div className="nav-logo-icon">
                 <a href="/">
@@ -17,24 +19,27 @@ export const Navbar = () => {
                         <img src="https://images.ctfassets.net/q602vtcuu3w3/5Kn3hosoikXHaQhOx4GikS/a97e3757c14fb0539d553c0a0462f4c7/URBAN-OUTFITTERS_LOGO_2022.svg" alt="Urban Outfitters" />
                     </picture>
                 </a>
-                
             </div>
-            <div className="nav-search">
-                <input type="text" placeholder="Search for products" />
-                <button className="nav-search-btn">Search</button>
+            <div className="nav-search-cart">
+                <div className="nav-search">
+                    <input type="text" placeholder="Search" />
+                    <img src={search_icon} alt="" />
+                </div>
+                <div className="nav-cart">
+                    <img src={cart_icon} alt="" />
+                <div className="nav-cart-count">0</div>
             </div>
-            <div className="nav-cart">
-                {/* <img src={cart} alt="" /> */}
-            <div className="nav-cart-count">0</div>
+
         </div>
         </div>
+        <hr></hr>
         <ul className="nav-menu">
-            <li>Home</li>
+            <li>NEW</li>
             <li>WOMEN</li>
             <li>MAN</li>
             <li>KIDS</li>
         </ul>
-       
+        <hr></hr>
     </div>
   )
 }

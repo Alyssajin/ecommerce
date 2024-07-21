@@ -14,17 +14,17 @@ const Popular = () => {
                 </div>
                 <div className="popular-inner-middle">
                     <p className="inner-text-title">
-                        New Trend
+                        NEW TREND
                     </p>
                     <p className="inner-text-subtitle">
                         Women Collection
                     </p>
                 </div>
                 <div className="popular-inner-bottom">
-                    <div className="popular-inner-btm">
-                        <p className="inner-btm-text">
-                            Shop Women
-                        </p>
+                    <div className="popular-inner-link">
+                        <a href='/women' className="inner-btm-text">
+                            SHOP WOMEN
+                        </a>
                     </div>
                 </div>
             </div>
@@ -38,17 +38,17 @@ const Popular = () => {
                 </div>
                 <div className="popular-inner-middle">
                     <p className="inner-text-title">
-                        New Trend
+                        NEW TREND
                     </p>
                     <p className="inner-text-subtitle">
                         Men Collection
                     </p>
                 </div>
                 <div className="popular-inner-bottom">
-                    <div className="popular-inner-btm">
-                        <p className="inner-btm-text">
-                            Shop Men
-                        </p>
+                    <div className="popular-inner-link">
+                        <a href='/men' className="inner-btm-text">
+                            SHOP MEN
+                        </a>
                     </div>
                 </div>
             </div>
@@ -61,17 +61,17 @@ const Popular = () => {
                 </div>
                 <div className="popular-inner-middle">
                     <p className="inner-text-title">
-                        New Trend
+                        NEW TREND
                     </p>
                     <p className="inner-text-subtitle">
                         Kids Collection
                     </p>
                 </div>
                 <div className="popular-inner-bottom">
-                    <div className="popular-inner-btm">
-                        <p className="inner-btm-text">
-                            Shop Kids
-                        </p>
+                    <div className="popular-inner-link">
+                        <a href='/kid' className="inner-btm-text">
+                            SHOP KIDS
+                        </a>
                     </div>
                 </div>
             </div>
@@ -84,17 +84,17 @@ const Popular = () => {
                 </div>
                 <div className="popular-inner-middle">
                     <p className="inner-text-title">
-                        New Trend
+                        NEW TREND
                     </p>
                     <p className="inner-text-subtitle">
                         Sale Collection
                     </p>
                 </div>
                 <div className="popular-inner-bottom">
-                    <div className="popular-inner-btm">
-                        <p className="inner-btm-text">
-                            Shop Sale
-                        </p>
+                    <div className="popular-inner-link">
+                        <a href='/sale' className="inner-btm-text">
+                            SHOP SALE
+                        </a>
                     </div>
                 </div>
             </div>

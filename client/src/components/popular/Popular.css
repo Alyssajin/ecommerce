@@ -13,4 +13,42 @@
 
 .popular-inner-top img{
     width: 100%;
+    cursor: pointer;
+}
+
+.popular-inner-middle {
+    margin-left: 25px;
+    padding: 0px;
+}
+
+.popular-inner-middle .inner-text-title {
+    font-size: 15px;
+    font-weight: 300;
+    margin: 7px;
+}
+
+.popular-inner-middle .inner-text-subtitle {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 7px;
+}
+
+.popular-inner-link {
+    display: flex;
+    justify-content: center;
+    border: 1.5px solid black;
+    width: 200px;
+    margin-left: 32px;
+    padding: 3px;
+}
+
+.popular-container a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.popular-container a:hover {
+    text-decoration: underline;
 }

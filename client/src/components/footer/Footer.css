@@ -1,0 +1,37 @@
+.footer {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f8f8;
+    border-top: 1px solid #e0e0e0;
+}
+
+.footer-email-signup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.footer-email-signup-left {
+    display: flex;
+    flex-direction: column;
+    margin-left: 200px;
+    width: 600px;
+}
+
+.footer-email-signup-middle {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-email-signup-right {
+    display: flex;
+    flex-direction: column;
+    margin-right: 200px;
+    width: 500px;
+}

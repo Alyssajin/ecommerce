@@ -1,0 +1,16 @@
+.popular-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+}
+
+.popular-content-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem;
+    padding: 0.5rem;
+}
+
+.popular-inner-top img{
+    width: 100%;
+}

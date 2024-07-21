@@ -8,8 +8,9 @@
     
 }
 .navbar hr {
-    width: 100%;
+    width: 110%;
     margin-top: 15px;
+    margin-left: -20px;
     border: 0;
     border-top: 1px solid #8c8686f2;
 

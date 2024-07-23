@@ -5,11 +5,13 @@ import Footer from "./components/footer/Footer";
 import Home from "./pages/Home";
 import VerifyUser from "./components/VerifyUser";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Banner from './components/banner/Banner';
 
 function App() {
     return (
         <div>
             <BrowserRouter>
+            <Banner />
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />

@@ -105,3 +105,4 @@ client:
 - hero: nuanxin
 - popular: nuanxin
 - footer: yuning
+- banner: yuning

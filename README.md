@@ -97,3 +97,11 @@ Must force login only when identity is required. For instance, an anonymous user
   - is code easy to read and understandable?
   - does variable names make sense?
   - do you see any errors in the console?"
+
+
+
+client:
+- navbar: nuanxin
+- hero: nuanxin
+- popular: nuanxin
+- footer: yuning

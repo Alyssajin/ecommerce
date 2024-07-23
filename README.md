@@ -98,7 +98,8 @@ Must force login only when identity is required. For instance, an anonymous user
   - does variable names make sense?
   - do you see any errors in the console?"
 
-
+Problem:
+- fail to stick the position of nav-logo and nav-menu
 
 client:
 - navbar: nuanxin

@@ -6,6 +6,7 @@ import App from "./App";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthTokenProvider } from "./AuthTokenContext";
 import { requestedScopes } from "./constants";
+import ShopContextProvider from "./context/ShopContext";
 
 const container = document.getElementById("root");
 
@@ -23,7 +24,11 @@ root.render(
       }}
     >
       <AuthTokenProvider>
-        <App />
+
+        <ShopContextProvider>
+          <App />
+        </ShopContextProvider>
+
       </AuthTokenProvider>
     </Auth0Provider>
   </React.StrictMode>

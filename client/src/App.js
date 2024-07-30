@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import VerifyUser from "./components/VerifyUser";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Banner from './components/banner/Banner';
+import ShopCategory from './pages/ShopCategory';
 
 export const DataContext = createContext(null)
 
@@ -20,6 +21,7 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/women" element={<ShopCategory category="women" />} />
                     <Route path="/verify-user" element={<VerifyUser />} />
                 </Routes>
                 <Footer />

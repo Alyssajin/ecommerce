@@ -11,7 +11,7 @@ import fs from "fs";
     const page = await browser.newPage();
 
     // Navigate the page to a URL
-    await page.goto('https://www.fwrd.com/category-shoes/3f40a9/?navsrc=main&pageNum=1', { waitUntil: 'networkidle0' });
+    await page.goto('https://www.fwrd.com/category-clothing/3699fc/?navsrc=main', { waitUntil: 'networkidle0' });
 
     let items = [];
 
@@ -40,12 +40,14 @@ import fs from "fs";
             try {
                 fwrdImage = await page.evaluate(e1 => e1.querySelector(".product__image-alt-view").getAttribute("src"), fwrdHandle);
             } catch (error) { }
+            try {
+                fwrdLink = await page.evaluate(e1 => e1.querySelector(".js-plp-pdp-link").getAttribute("href"), fwrdHandle);
+            } catch (error) { }
 
             if (fwrdTitle !== "Null" && fwrdPrice !== "Null" && fwrdImage !== "Null" && fwrdBrand !== "Null") {
-                items.push({ brand: fwrdBrand, title: fwrdTitle, price: fwrdPrice, image: fwrdImage });
                 fs.appendFile(
                     "result.csv",
-                    `${fwrdBrand},${fwrdTitle},${fwrdPrice},${fwrdImage}\n`,
+                    `${itemId},women,${fwrdBrand},${fwrdTitle},${fwrdPrice},${fwrdImage},https://www.fwrd.com${fwrdLink}\n`,
                     function (err) {
                         if (err) throw err;
                     }

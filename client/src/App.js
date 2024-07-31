@@ -21,7 +21,7 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/women" element={<ShopCategory category="women" />} />
+                    <Route path="/women" element={<ShopCategory title="Women's Clothing" category="women" />} />
                     <Route path="/verify-user" element={<VerifyUser />} />
                 </Routes>
                 <Footer />

@@ -3,6 +3,7 @@ import './Item.css'
 import { Link } from 'react-router-dom'
 
 const Item = (props) => {
+  console.log("Item props:", props.image)
   return (
     <div className='item'>
         <Link to={`/shop/${props.id}`}><img onClick={window.scroll(0,0)} src={props.image} alt=""/> </Link>

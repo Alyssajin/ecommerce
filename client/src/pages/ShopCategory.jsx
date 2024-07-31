@@ -2,9 +2,12 @@ import React, { useContext } from 'react'
 import './css/ShopCategory.css'
 import Item from '../components/item/Item'
 import { ShopContext } from '../context/ShopContext'
+import data from "../assets/products.json"
 
 const ShopCategory = (props) => {
-    const { all_products } = useContext(ShopContext)
+    // const { all_products } = useContext(ShopContext)
+    // read data from the products.json file
+    const all_products = data
     return (
         <div className='shop-category'>
             <img className='shop-category-banner' src={props.banner} alt="" />

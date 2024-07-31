@@ -42,7 +42,7 @@ import fs from "fs";
                 fwrdPrice = await page.evaluate(e1 => e1.querySelector(".price__sale")?.textContent || e1.querySelector(".js-plp-price-retail").textContent, fwrdHandle);
             } catch (error) { }
             try {
-                fwrdImage = await page.evaluate(e1 => e1.querySelector(".product__image-alt-view").getAttribute("src"), fwrdHandle);
+                fwrdImage = await page.evaluate(e1 => e1.querySelector(".product__image-main-view").getAttribute("src"), fwrdHandle);
             } catch (error) { }
             try {
                 fwrdLink = await page.evaluate(e1 => e1.querySelector(".js-plp-pdp-link").getAttribute("href"), fwrdHandle);
@@ -79,14 +79,11 @@ import fs from "fs";
             page.click('span.icon--arrow-right--lg'),
             page.waitForNavigation({ waitUntil: 'networkidle2' }),
         ]);
-
-        // console.log(nextButtonDisabled);
-        // console.log(isBtnDisabled);
     }
 
+    // Close the browser
+    await browser.close();
     
-    // console.log(items);
-    console.log(items.length);
 
 
 })();

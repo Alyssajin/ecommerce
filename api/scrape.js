@@ -47,7 +47,7 @@ import fs from "fs";
             if (fwrdTitle !== "Null" && fwrdPrice !== "Null" && fwrdImage !== "Null" && fwrdBrand !== "Null") {
                 fs.appendFile(
                     "result.csv",
-                    `${itemId},women,${fwrdBrand},${fwrdTitle},${fwrdPrice},${fwrdImage},https://www.fwrd.com${fwrdLink}\n`,
+                    `${itemId},women,${fwrdBrand},${fwrdTitle},${fwrdPrice.replace(/,/g, "")},${fwrdImage},https://www.fwrd.com${fwrdLink}\n`,
                     function (err) {
                         if (err) throw err;
                     }

@@ -1,6 +1,25 @@
 import puppeteer from "puppeteer";
 import fs from "fs";
 
+async function autoScroll(page){
+    await page.evaluate(async () => {
+        await new Promise((resolve) => {
+            var totalHeight = 0;
+            var distance = 100;
+            var timer = setInterval(() => {
+                var scrollHeight = document.body.scrollHeight;
+                window.scrollBy(0, distance);
+                totalHeight += distance;
+
+                if(totalHeight >= scrollHeight - window.innerHeight){
+                    clearInterval(timer);
+                    resolve();
+                }
+            }, 100);
+        });
+    })
+}
+
 
 
 (async () => {
@@ -14,7 +33,7 @@ import fs from "fs";
 
     // Navigate the page to a URL
     await page.goto('https://www.fwrd.com/category-clothing/3699fc/?navsrc=main', { waitUntil: 'networkidle0' });
-
+    await autoScroll(page);
     let items = [];
     let itemId = 0;
 
@@ -42,7 +61,7 @@ import fs from "fs";
                 fwrdPrice = await page.evaluate(e1 => e1.querySelector(".price__sale")?.textContent || e1.querySelector(".js-plp-price-retail").textContent, fwrdHandle);
             } catch (error) { }
             try {
-                fwrdImage = await page.evaluate(e1 => e1.querySelector(".product__image-main-view").getAttribute("src"), fwrdHandle);
+                fwrdImage = await page.evaluate(e1 => e1.querySelector(".product__image-main-view.js-plp-image.js-plp-lazy-prod-img").getAttribute("src"), fwrdHandle);
             } catch (error) { }
             try {
                 fwrdLink = await page.evaluate(e1 => e1.querySelector(".js-plp-pdp-link").getAttribute("href"), fwrdHandle);
@@ -84,8 +103,6 @@ import fs from "fs";
     // Close the browser
     await browser.close();
     
-
-
 })();
 
 

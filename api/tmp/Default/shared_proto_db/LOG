@@ -1,2 +1,3 @@
-2024/07/31-15:56:29.900 ed03 Creating DB /Users/nuanxin/Desktop/NEU/5610/hw/cs-5610-assignment-03-alyssa-yuning/api/tmp/Default/shared_proto_db since it was missing.
-2024/07/31-15:56:29.901 ed03 Reusing MANIFEST /Users/nuanxin/Desktop/NEU/5610/hw/cs-5610-assignment-03-alyssa-yuning/api/tmp/Default/shared_proto_db/MANIFEST-000001
+2024/07/31-16:18:39.618 bb03 Reusing MANIFEST /Users/nuanxin/Desktop/NEU/5610/hw/cs-5610-assignment-03-alyssa-yuning/api/tmp/Default/shared_proto_db/MANIFEST-000001
+2024/07/31-16:18:39.619 bb03 Recovering log #3
+2024/07/31-16:18:39.619 bb03 Reusing old log /Users/nuanxin/Desktop/NEU/5610/hw/cs-5610-assignment-03-alyssa-yuning/api/tmp/Default/shared_proto_db/000003.log 

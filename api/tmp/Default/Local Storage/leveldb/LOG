@@ -1,2 +1,3 @@
-2024/07/31-15:56:29.688 2f03 Creating DB /Users/nuanxin/Desktop/NEU/5610/hw/cs-5610-assignment-03-alyssa-yuning/api/tmp/Default/Local Storage/leveldb since it was missing.
-2024/07/31-15:56:29.691 2f03 Reusing MANIFEST /Users/nuanxin/Desktop/NEU/5610/hw/cs-5610-assignment-03-alyssa-yuning/api/tmp/Default/Local Storage/leveldb/MANIFEST-000001
+2024/07/31-16:18:38.729 2c03 Reusing MANIFEST /Users/nuanxin/Desktop/NEU/5610/hw/cs-5610-assignment-03-alyssa-yuning/api/tmp/Default/Local Storage/leveldb/MANIFEST-000001
+2024/07/31-16:18:38.730 2c03 Recovering log #3
+2024/07/31-16:18:38.730 2c03 Reusing old log /Users/nuanxin/Desktop/NEU/5610/hw/cs-5610-assignment-03-alyssa-yuning/api/tmp/Default/Local Storage/leveldb/000003.log 

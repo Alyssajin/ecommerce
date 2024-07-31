@@ -1,6 +1,8 @@
 import puppeteer from "puppeteer";
 import fs from "fs";
 
+
+
 (async () => {
     // Launch the browser and open a new blank page
     const browser = await puppeteer.launch({
@@ -14,6 +16,7 @@ import fs from "fs";
     await page.goto('https://www.fwrd.com/category-clothing/3699fc/?navsrc=main', { waitUntil: 'networkidle0' });
 
     let items = [];
+    let itemId = 0;
 
     const scrapePage = async () => {
         // Wait for the products grid to load
@@ -26,6 +29,7 @@ import fs from "fs";
             let fwrdTitle = "Null";
             let fwrdPrice = "Null";
             let fwrdImage = "Null";
+            let fwrdLink = "Null";
 
             try {
                 fwrdBrand = await page.evaluate(e1 => e1.querySelector(".product-grids__copy-item.js-plp-brand").textContent, fwrdHandle);
@@ -43,8 +47,9 @@ import fs from "fs";
             try {
                 fwrdLink = await page.evaluate(e1 => e1.querySelector(".js-plp-pdp-link").getAttribute("href"), fwrdHandle);
             } catch (error) { }
-
             if (fwrdTitle !== "Null" && fwrdPrice !== "Null" && fwrdImage !== "Null" && fwrdBrand !== "Null") {
+                itemId++;
+                items.push({id: itemId, category: "women", brand: fwrdBrand, title: fwrdTitle, price: fwrdPrice, image: fwrdImage });
                 fs.appendFile(
                     "result.csv",
                     `${itemId},women,${fwrdBrand},${fwrdTitle},${fwrdPrice.replace(/,/g, "")},${fwrdImage},https://www.fwrd.com${fwrdLink}\n`,

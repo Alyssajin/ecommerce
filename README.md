@@ -105,5 +105,7 @@ client:
 - navbar: nuanxin
 - hero: nuanxin
 - popular: nuanxin
-- footer: yuning
-- banner: yuning
+- footer.css: yuning
+- banner.css: yuning
+- pagination.css: yuning
+- shopCategory.css: yuning

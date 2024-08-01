@@ -1,15 +1,24 @@
-import React, { useContext } from 'react'
+import React, {useState} from 'react'
 import './css/ShopCategory.css'
 import Item from '../components/item/Item'
 import { ShopContext } from '../context/ShopContext'
 import data from "../assets/products.json"
+import Pagination from '../components/pagination/Pagination'
 
 const ShopCategory = (props) => {
     // const { all_products } = useContext(ShopContext)
     // read data from the products.json file
     const all_products = data
+    const PRODUCTS_PER_PAGE = 12;
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = Math.ceil(all_products.length / PRODUCTS_PER_PAGE);
+    const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+    const endIndex = startIndex + PRODUCTS_PER_PAGE;
+    const currentProducts = all_products.slice(startIndex, endIndex);
+
     return (
         <div className='shop-category'>
+            <Pagination fallbackPerPage={PRODUCTS_PER_PAGE} currentPage={currentPage} onPageChange={setCurrentPage} totalPages={totalPages} />
             <img className='shop-category-banner' src={props.banner} alt="" />
             <div className="shop-category-title-sort">
                 <div className="shop-category-title">
@@ -31,8 +40,8 @@ const ShopCategory = (props) => {
                 {/* employ a nav for pagination. created in the future */}
             </div>
             <div className="shop-category-products">
-                {all_products.map((item, i) => {
-                    if (props.category===item.category) {
+                {currentProducts.map((item, i) => {
+                    if (props.category === item.category) {
                         return (
                             <Item
                                 key={i}

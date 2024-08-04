@@ -1,4 +1,0 @@
-2024/07/31-16:11:24.044 b603 Reusing MANIFEST /Users/nuanxin/Desktop/NEU/5610/hw/cs-5610-assignment-03-alyssa-yuning/api/tmp/Default/IndexedDB/https_www.fwrd.com_0.indexeddb.leveldb/MANIFEST-000001
-2024/07/31-16:11:24.044 b603 Recovering log #3
-2024/07/31-16:11:24.045 b603 Reusing old log /Users/nuanxin/Desktop/NEU/5610/hw/cs-5610-assignment-03-alyssa-yuning/api/tmp/Default/IndexedDB/https_www.fwrd.com_0.indexeddb.leveldb/000003.log 
-2024/07/31-16:11:24.048 b403 Manual compaction at level-0 from '\x00\x02\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x03\x00\x00\x00' @ 0 : 0; will stop at (end)

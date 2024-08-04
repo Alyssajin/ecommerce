@@ -6,7 +6,6 @@ import morgan from "morgan";
 import cors from "cors";
 import { auth } from "express-oauth2-jwt-bearer";
 
-// this is a middleware that will validate the access token sent by the client
 const requireAuth = auth({
   audience: process.env.AUTH0_AUDIENCE,
   issuerBaseURL: process.env.AUTH0_ISSUER,
@@ -24,7 +23,7 @@ const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 
 // this is a public endpoint because it doesn't have the requireAuth middleware
-app.get("/ping", (req, res) => {
+app.get("/", (req, res) => {
   res.send("pong");
 });
 
@@ -59,6 +58,25 @@ app.post("/verify-user", requireAuth, async (req, res) => {
     res.json(newUser);
   }
 });
+
+// Create an Endpoint to add a new product
+app.post("/addproduct", requireAuth, async (req, res) => {
+
+
+  const product = await prisma.product.create({
+    data: {
+      brand: req.body.brand,
+      name: req.body.name,
+      price: req.body.price,
+      image: req.body.image,
+      link: req.body.link,
+    }
+  });
+  console.log(product);
+  await product.save();
+  res.json(product);
+});
+
 
 app.listen(8000, () => {
   console.log("Server running on http://localhost:8000 🎉 🚀");

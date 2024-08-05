@@ -4,16 +4,33 @@ import cart_icon from "../../assets/icons/cart.png"
 import search_icon from "../../assets/icons/search_icon.png"
 import "./Navbar.css"
 import { Link } from "react-router-dom"
+import { useAuth0 } from "@auth0/auth0-react"
 
 
 export const Navbar = () => {
     const [menu, setMenu] = useState("home");
     const menuRef = useRef();
+    // deal with user authentication
+    const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+    const signUp = () => loginWithRedirect({ screen_hint: "signup" });
+    const logIn = () => loginWithRedirect();
+    const logOut = () => logout({ returnTo: window.location.origin });
+
 
     return (
         <div className='navbar'>
             <div className="nav-login">
-                <button className="nav-login-btn">Sign In</button>
+                {!isAuthenticated ? (
+                    <div className="nav-login-buttons">
+                        <button onClick={signUp} className="nav-signup">Sign Up</button>
+                        <button onClick={logIn} className="nav-login">Log In</button>
+                    </div>
+                ) : (
+                    <div className="nav-logout">
+                        <div className="nav-logout-name">Hello, {user.name}</div>
+                        <button onClick={logOut} className="nav-logout-button">Log Out</button>
+                    </div>
+                )}
             </div>
             <hr className="nav-hr"></hr>
             <div className="nav-header">

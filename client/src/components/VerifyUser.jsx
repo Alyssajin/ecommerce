@@ -19,10 +19,10 @@ export default function VerifyUser() {
         
       });
       const user = await data.json();
-      console.log("accessToken", accessToken)
+
       // TODO: redirect here to where the user should go after verifying their account
       if (user.auth0Id) {
-        navigate("/");
+        navigate("/app");
       }
     }
 
@@ -34,15 +34,6 @@ export default function VerifyUser() {
   return (
     <div className="loading">
       <h1>Loading...</h1>
-      <p>
-        If you keep seeing this message after logging in, please verify your
-        Network tab in the browser's Developer Tools to see if there are any
-        errors.
-      </p>
-      <p>
-        Check also your api terminal for any errors in the POST /verify-user
-        route.
-      </p>
     </div>
   );
 }

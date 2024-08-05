@@ -109,3 +109,4 @@ client:
 - banner.css: yuning
 - pagination.css: yuning
 - shopCategory.css: yuning
+- profile

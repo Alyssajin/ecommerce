@@ -23,7 +23,7 @@ const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 
 // this is a public endpoint because it doesn't have the requireAuth middleware
-app.get("/", (req, res) => {
+app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
@@ -33,9 +33,6 @@ app.get("/", (req, res) => {
 // if the user is already registered we will return the user information
 app.post("/verify-user", requireAuth, async (req, res) => {
   const auth0Id = req.auth.payload.sub;
-  // we are using the audience to get the email and name from the token
-  // if your audience is different you should change the key to match your audience
-  // the value should match your audience according to this document: https://docs.google.com/document/d/1lYmaGZAS51aeCxfPzCwZHIk6C5mmOJJ7yHBNPJuGimU/edit#heading=h.fr3s9fjui5yn
   const email = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/email`];
   const name = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/name`];
 
@@ -55,22 +52,9 @@ app.post("/verify-user", requireAuth, async (req, res) => {
         name,
       },
     });
+
+    res.json(newUser);
   }
-
-  //   // create a cart for every new user
-  //   let cart = await prisma.cart.create({
-  //     data: {
-  //       user: {
-  //         connect: {
-  //           auth0Id,
-  //         },
-  //       },
-  //       total: 0,
-  //     },
-  //   });
-
-  //   res.json(newUser);
-  // }
 });
 
 // Create a new product

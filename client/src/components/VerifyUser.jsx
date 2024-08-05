@@ -16,9 +16,10 @@ export default function VerifyUser() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
+        
       });
       const user = await data.json();
-
+      console.log("accessToken", accessToken)
       // TODO: redirect here to where the user should go after verifying their account
       if (user.auth0Id) {
         navigate("/");

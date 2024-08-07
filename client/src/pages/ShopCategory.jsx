@@ -3,7 +3,7 @@ import './css/ShopCategory.css'
 import Item from '../components/item/Item'
 import { ShopContext } from '../context/ShopContext'
 import data from "../assets/products.json"
-import Pagination from '../components/pagination/Pagination'
+import PaginationNew from '../components/pagination/PaginationNew' // PaginationNew to be finalized
 
 const ShopCategory = (props) => {
     // const { all_products } = useContext(ShopContext)
@@ -18,7 +18,7 @@ const ShopCategory = (props) => {
 
     return (
         <div className='shop-category'>
-            <Pagination fallbackPerPage={PRODUCTS_PER_PAGE} currentPage={currentPage} onPageChange={setCurrentPage} totalPages={totalPages} />
+            <PaginationNew fallbackPerPage={PRODUCTS_PER_PAGE} currentPage={currentPage} onPageChange={setCurrentPage} totalPages={totalPages} />
             <img className='shop-category-banner' src={props.banner} alt="" />
             <div className="shop-category-title-sort">
                 <div className="shop-category-title">

@@ -4,23 +4,27 @@ import './Profile.css'
 
 export default function Profile() {
     const { user } = useAuth0();
+
     return (
-        <div>
-            <div>
-                <p>Name: {user.name}</p>
+        <div className="profile-container">
+            <div className="profile-header">
+                <img className="profile-avatar" src={user.picture} alt="Profile Avatar" />
+                <h2 className="profile-name">{user.name}</h2>
             </div>
-            <div>
-                <img src={user.picture} width="70" alt="profile avatar" />
-            </div>
-            <div>
-                <p>📧 Email: {user.email}</p>
-            </div>
-            <div>
-                <p>🔑 Auth0Id: {user.sub}</p>
-            </div>
-            <div>
-                <p>✅ Email verified: {user.email_verified?.toString()}</p>
+            <div className="profile-info">
+                <p>
+                    📧 <strong>Email: </strong>
+                    {user.email}
+                </p>
+                <p>
+                    🔑 <strong>Auth0Id: </strong>
+                    {user.sub}
+                </p>
+                <p>
+                    ✅ <strong>Email Verified: </strong>
+                    {user.email_verified?.toString()}
+                </p>
             </div>
         </div>
-    )
+    );
 }

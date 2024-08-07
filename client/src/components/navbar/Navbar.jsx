@@ -26,7 +26,9 @@ export const Navbar = () => {
                     </div>
                 ) : (
                     <div className="nav-logout">
-                        <div className="nav-logout-name">Hello, {user.name}</div>
+                        <div className="nav-logout-name">
+                            Hello, <Link to="/profile" className="nav-logout-name-span">{user.name}</Link>
+                        </div>
                         <button onClick={logOut} className="nav-logout-button">Log Out</button>
                     </div>
                 )}

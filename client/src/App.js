@@ -37,6 +37,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/women" element={<ShopCategory title="Women's Clothing" category="women" />} />
                     <Route path="/verify-user" element={<VerifyUser />} />
+                    <Route path="profile" element={<Profile />} />
                     <Route path="app" element={
                         <RequireAuth>
                             <AppLayout />

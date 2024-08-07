@@ -43,7 +43,7 @@ app.post("/verify-user", requireAuth, async (req, res) => {
   });
 
   if (user) {
-    res.json(user);
+    res.status(201).json(user);
   } else {
     const newUser = await prisma.user.create({
       data: {
@@ -53,14 +53,14 @@ app.post("/verify-user", requireAuth, async (req, res) => {
       },
     });
 
-    res.json(newUser);
+    res.status(201).json(newUser);
   }
 });
 
 // Create a new product
 app.post("/products", requireAuth, async (req, res) => {
   const auth0Id = req.auth.payload.sub;
-  const { brand, name, price, image, link } = req.body;
+  const { brand, name, price, image, link, category } = req.body;
 
   if (!brand || !name || !price || !image || !link) {
     return res.status(400).json({ error: "Missing required fields" });
@@ -69,26 +69,61 @@ app.post("/products", requireAuth, async (req, res) => {
       data: {
         brand,
         name,
-        price,
+        price: parseFloat(price.slice(4)),
         image,
         link,
-        user: {
-          connect: {
-            auth0Id,
-          },
-        },
+        category,
       },
     });
     res.status(201).json(product);
   }
 });
 
+// Create a new cart
+app.post("/cart", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const user = await prisma.user.findUnique({
+    where: {
+      auth0Id,
+    },
+  });
+  // Check if the user exists
+  if (!user) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  // Check if the user already has a cart
+  const existingCart = await prisma.cart.findFirst({
+    where: {
+      userId: user.id,
+    },
+  });
+  if (existingCart) {
+    return res.status(401).json({
+      error: "Cart already exists"
+    });
+  }
+  
+  const cart = await prisma.cart.create({
+    data: {
+      user: {
+        connect: {
+          id: user.id,
+        },
+      },
+      total: 0,
+
+    },
+  });
+  res.status(201).json(cart);
+});
+
+
 // Create a new cartItem
 app.post("/cartItem", requireAuth, async (req, res) => {
   const auth0Id = req.auth.payload.sub;
   const { productId, quantity } = req.body;
 
-  if (!productId || !quantity) {
+  if (!quantity || !productId) {
     return res.status(400).json({ error: "Missing required fields" });
   } else {
     const user = await prisma.user.findUnique({
@@ -102,6 +137,18 @@ app.post("/cartItem", requireAuth, async (req, res) => {
         userId: user.id,
       },
     });
+
+    const existingCartItem = await prisma.cartItem.findFirst({
+      where: {
+        cartId: cart.id,
+        productId: productId,
+      },
+    });
+
+    if (existingCartItem) {
+      return res.status(401).json({ error: "Product-cart already exists" });
+    }
+
 
     const cartItem = await prisma.cartItem.create({
       data: {
@@ -161,15 +208,7 @@ app.get("/cartItem/:id", requireAuth, async (req, res) => {
     },
   });
 
-  const productId = cartItem.productId;
-  const quantity = cartItem.quantity;
-  const product = await prisma.product.findUnique({
-    where: {
-      id: productId,
-    },
-  });
-
-  res.status(200).json(product, quantity);
+  res.status(200).json(cartItem);
 });
 
 // get all products in cart by user id
@@ -197,6 +236,8 @@ app.get("/cart", requireAuth, async (req, res) => {
     },
   });
 
+  let total = 0;
+
   const cartData = [];
   for (let i = 0; i < cartItems.length; i++) {
     const p = await prisma.product.findUnique({
@@ -205,7 +246,10 @@ app.get("/cart", requireAuth, async (req, res) => {
       },
     });
     const quantity = cartItems[i].quantity;
-    const product = { product: p, quantity: quantity };
+    const t = p.price * quantity;
+    total += t;
+    const product = { product: p, quantity: quantity, total: t };
+
     cartData.push(product);
   }
 
@@ -292,6 +336,119 @@ app.get("/products/name/:name", requireAuth, async (req, res) => {
   res.status(200).json(products);
 });
 
+
+///// UPDATE ENDPOINTS /////
+// Update a product by id
+app.put("/products/:id", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const { brand, name, price, image, link, category } = req.body;
+  const { id } = req.params;
+
+  if (!brand || !name || !price || !image || !link) {
+    return res.status(400).json({ error: "Missing required fields" });
+  } else {
+    const product = await prisma.product.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: {
+        brand,
+        name,
+        price: parseFloat(price.slice(4)),
+        image,
+        link,
+        category,
+      },
+    });
+    res.status(200).json(product);
+  }
+});
+
+// Update a cartItem by id
+app.put("/cartItem/:id", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const { quantity } = req.body;
+  const { id } = req.params;
+
+  if (!quantity) {
+    return res.status(400).json({ error: "Missing required fields" });
+  } else {
+    const cartItem = await prisma.cartItem.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: {
+        quantity,
+      },
+    });
+    res.status(200).json(cartItem);
+  }
+});
+
+// Update a cart by id
+app.put("/cart/:id", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const { total } = req.body;
+  const { id } = req.params;
+
+  if (!total) {
+    return res.status(400).json({ error: "Missing required fields" });
+  } else {
+    const cart = await prisma.cart.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: {
+        total,
+      },
+    });
+    res.status(200).json(cart);
+  }
+});
+
+///// DELETE ENDPOINTS /////
+// Delete a product by id
+app.delete("/products/:id", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const { id } = req.params;
+  const product = await prisma.product.delete({
+    where: {
+      id: parseInt(id),
+    },
+  });
+  res.status(200).json(product);
+});
+
+// Delete a cartItem by id
+app.delete("/cartItem/:id", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const { id } = req.params;
+  const cartItem = await prisma.cartItem.delete({
+    where: {
+      id: parseInt(id),
+    },
+  });
+  res.status(200).json(cartItem);
+});
+
+// Delete a cart by id
+app.delete("/cart/:id", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const { id } = req.params;
+
+  await prisma.cartItem.deleteMany({
+    where: {
+      cartId: parseInt(id),
+    },
+  });
+
+  await prisma.cart.delete({
+    where: {
+      id: parseInt(id),
+    },
+  });
+  res.status(200);
+});
 
 
 app.listen(8000, () => {

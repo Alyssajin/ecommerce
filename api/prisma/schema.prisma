@@ -39,11 +39,12 @@ model CartItem {
 }
 
 model Product {
-  id    Int     @id @default(autoincrement())
-  brand String  @db.VarChar(255)
-  name  String  @db.VarChar(255)
-  image String?
-  price Float
-  link  String?
+  id       Int        @id @default(autoincrement())
+  brand    String     @db.VarChar(255)
+  name     String     @db.VarChar(255)
+  category String
+  image    String?
+  price    Float
+  link     String?
   CartItem CartItem[]
 }

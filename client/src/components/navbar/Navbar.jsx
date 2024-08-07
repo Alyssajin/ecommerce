@@ -22,8 +22,7 @@ export const Navbar = () => {
             <div className="nav-login">
                 {!isAuthenticated ? (
                     <div className="nav-login-buttons">
-                        <button onClick={signUp} className="nav-signup">Sign Up</button>
-                        <button onClick={logIn} className="nav-login">Log In</button>
+                        <button onClick={signUp} className="nav-login-btn">Sign in</button>
                     </div>
                 ) : (
                     <div className="nav-logout">

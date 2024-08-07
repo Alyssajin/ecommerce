@@ -11,6 +11,7 @@ import AppLayout from './components/appLayout/AppLayout';
 import Profile from './components/profile/Profile';
 import AuthDebugger from './components/authDebugger/AuthDebugger';
 import { useAuth0 } from '@auth0/auth0-react';
+import Admin from './components/admin/Admin';
 
 
 
@@ -46,6 +47,7 @@ function App() {
                     >
                         <Route index element={<Profile />} />
                         <Route path="debugger" element={<AuthDebugger />} />
+                        <Route path="admin" element={<Admin />} />
                     </Route>
                 </Routes>
                 <Footer />

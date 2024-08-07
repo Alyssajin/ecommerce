@@ -18,7 +18,7 @@ const AppLayout = () => {
             <nav className="menu">
                 <ul className="menu-list">
                     <li>
-                        <Link to="/app">Profile</Link>
+                        <Link to="/app/admin">Admin</Link>
                     </li>
                     <li>
                         <Link to="/app/debugger">Auth Debugger</Link>

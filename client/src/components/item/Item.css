@@ -1,0 +1,77 @@
+.item {
+    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+    /*border-radius: 8px;*/
+    transition: transform 0.2s ease-in-out;
+}
+
+
+.item-image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.item img {
+    width: 80%;
+    margin: auto 10%;
+    height: auto;
+}
+
+.item .item-brand,
+.item .item-name,
+.item .item-price {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.item .item-brand {
+    font-size: 1rem;
+    color: #666;
+    font-style: italic;
+}
+
+.item .item-name {
+    max-width: 80%;
+    text-align: center;
+    margin: 10px auto;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+.item-add-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.item-add-container button {
+    padding: 5px 10px;
+    border: none;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.item-add-container button:hover {
+    text-decoration: underline;
+}
+
+.item:hover {
+    transform: translateY(-8px);
+}
+
+.item:hover .item-add-container {
+    opacity: 1;
+}

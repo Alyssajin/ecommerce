@@ -14,6 +14,31 @@ const ShopCategory = (props) => {
     const totalPages = Math.ceil(all_products.length / PRODUCTS_PER_PAGE);
     const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
     const endIndex = startIndex + PRODUCTS_PER_PAGE;
+
+    // new: implemented sorting for current static data. needs to be updated for data fetched from the server
+    // should we implement sorting as an API endpoint in the future?
+    const [sortOption, setSortOption] = useState('default');
+    const parsePrice = (priceString) => {
+        const numericString = priceString.slice(4)
+        return parseFloat(numericString);
+    };
+
+    const sortOptions = {
+        default: (a, b) => a.id - b.id,
+        priceAscending: (a, b) => parsePrice(a.price) - parsePrice(b.price),
+        priceDescending: (a, b) => parsePrice(b.price) - parsePrice(a.price),
+
+        // same as default
+        newest: (a, b) => a.id - b.id,
+        bestSelling: (a, b) => a.id - b.id,
+        rating: (a, b) => a.id - b.id,
+
+        nameAscending: (a, b) => a.name.localeCompare(b.name),
+        nameDescending: (a, b) => b.name.localeCompare(a.name),
+    }
+    all_products.sort(sortOptions[sortOption]);
+    // end of sorting implementation
+
     const currentProducts = all_products.slice(startIndex, endIndex);
 
     return (
@@ -26,7 +51,11 @@ const ShopCategory = (props) => {
                 </div>
                 <div className="shop-category-sort">
                     <label className='shop-category-grid-sort'>Sort:</label>
-                    <select className='shop-category-grid-sort-select'>
+                    <select
+                        className='shop-category-grid-sort-select'
+                        value={sortOption}
+                        onChange={(e) => setSortOption(e.target.value)}
+                    >
                         <option value='default'>Featured</option>
                         <option value='priceAscending'>Price: Low to High</option>
                         <option value='priceDescending'>Price: High to Low</option>
@@ -58,6 +87,7 @@ const ShopCategory = (props) => {
                 })}
             </div>
             {/* employ a nav for pagination. created in the future */}
+            <PaginationNew fallbackPerPage={PRODUCTS_PER_PAGE} currentPage={currentPage} onPageChange={setCurrentPage} totalPages={totalPages} />
         </div>
     )
 }

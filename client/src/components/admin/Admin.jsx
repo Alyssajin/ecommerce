@@ -21,12 +21,13 @@ const Admin = () => {
         })
     }
 
+    // Create a new product in the database
     const add_product = async () => {
         let productData = {
             ...products,
             price: `CA$ ${products.price}`,
         }
-        
+
         if (!products.brand || !products.name || !products.price) {
             alert("Brand, Name, and Price are required");
             return;
@@ -62,8 +63,36 @@ const Admin = () => {
         }
     };
 
+    // Display all products in the database
+    const display_all_products = async () => {
+        try {
+            const response = await fetch(`http://localhost:8000/products`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`
+                },
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log("Products fetched successfully:", data.products);
+            } else {
+                console.log(data.success);
+                alert("Failed to fetch products");
+            }
+        } catch (error) {
+            console.error("Error fetching products:", error);
+            alert("An error occurred while fetching products.");
+        }
+    };
+
+    
+
+    // Update a product in the database
     const update_product = async () => {
-        console.log(products)
+        
         let productData = products;
 
         await fetch(`http://localhost:8000/products`, {
@@ -77,29 +106,7 @@ const Admin = () => {
             .then((data) => { data.success ? alert("Product Updated") : alert("Failed") })
     }
 
-    const display_product = async () => {
-        try {
-            const response = await fetch(`http://localhost:8000/products`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${accessToken}`
-                },
-            });
-    
-            const data = await response.json();
-    
-            if (data.success) {
-                console.log("Products fetched successfully:", data.products);
-            } else {
-                console.log(data.success);
-                alert("Failed to fetch products");
-            }
-        } catch (error) {
-            console.error("Error fetching products:", error);
-            alert("An error occurred while fetching products.");
-        }
-    };
+
 
 
     return (
@@ -147,8 +154,8 @@ const Admin = () => {
                     <input value={products.link} onChange={changeHanlder} type="text" name="link" placeholder="Type Here" />
                 </div>
             </div>
-            <button onClick={() => {add_product()}} className="admin-addproduct-btn">ADD</button>
-            <button onClick={() => {display_product()}} className="admin-addproduct-btn">GET</button>
+            <button onClick={() => { add_product() }} className="admin-addproduct-btn">ADD</button>
+            <button onClick={() => { display_all_products() }} className="admin-addproduct-btn">GET</button>
         </div>
     )
 }

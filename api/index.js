@@ -43,7 +43,7 @@ app.post("/verify-user", requireAuth, async (req, res) => {
   });
 
   if (user) {
-    res.status(201).json(user);
+    res.status(201).json({success:1, user});
   } else {
     const newUser = await prisma.user.create({
       data: {
@@ -53,7 +53,7 @@ app.post("/verify-user", requireAuth, async (req, res) => {
       },
     });
 
-    res.status(201).json(newUser);
+    res.status(201).json({success:1, newUser});
   }
 });
 
@@ -75,7 +75,7 @@ app.post("/products", requireAuth, async (req, res) => {
         category,
       },
     });
-    res.status(201).json(product);
+    res.status(201).json({success:1, product});
   }
 });
 
@@ -89,7 +89,7 @@ app.post("/cart", requireAuth, async (req, res) => {
   });
   // Check if the user exists
   if (!user) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ success: 0, error: "Unauthorized" });
   }
   // Check if the user already has a cart
   const existingCart = await prisma.cart.findFirst({
@@ -99,6 +99,7 @@ app.post("/cart", requireAuth, async (req, res) => {
   });
   if (existingCart) {
     return res.status(401).json({
+      success: 0,
       error: "Cart already exists"
     });
   }
@@ -114,7 +115,7 @@ app.post("/cart", requireAuth, async (req, res) => {
 
     },
   });
-  res.status(201).json(cart);
+  res.status(201).json({success: 1, cart});
 });
 
 
@@ -124,7 +125,7 @@ app.post("/cartItem", requireAuth, async (req, res) => {
   const { productId, quantity } = req.body;
 
   if (!quantity || !productId) {
-    return res.status(400).json({ error: "Missing required fields" });
+    return res.status(400).json({success:0, error: "Missing required fields" });
   } else {
     const user = await prisma.user.findUnique({
       where: {
@@ -146,7 +147,7 @@ app.post("/cartItem", requireAuth, async (req, res) => {
     });
 
     if (existingCartItem) {
-      return res.status(401).json({ error: "Product-cart already exists" });
+      return res.status(401).json({ success: 0, error: "Product-cart already exists" });
     }
 
 
@@ -166,7 +167,7 @@ app.post("/cartItem", requireAuth, async (req, res) => {
       },
     });
 
-    res.status(201).json(cartItem);
+    res.status(201).json({success: 1, cartItem});
   }
 });
 
@@ -182,7 +183,7 @@ app.get("/me", requireAuth, async (req, res) => {
   });
 
   if (!user) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ success: 0, error: "Unauthorized" });
   }
 
   res.status(200).json(user);
@@ -198,7 +199,7 @@ app.get("/cartItem/:id", requireAuth, async (req, res) => {
   });
 
   if (!user) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ success: 0, error: "Unauthorized" });
   }
 
   const { id } = req.params;
@@ -208,7 +209,7 @@ app.get("/cartItem/:id", requireAuth, async (req, res) => {
     },
   });
 
-  res.status(200).json(cartItem);
+  res.status(200).json({success: 1, cartItem});
 });
 
 // get all products in cart by user id
@@ -221,7 +222,7 @@ app.get("/cart", requireAuth, async (req, res) => {
   });
 
   if (!user) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({success: 0, error: "Unauthorized" });
   }
 
   const cart = await prisma.cart.findFirst({
@@ -253,7 +254,7 @@ app.get("/cart", requireAuth, async (req, res) => {
     cartData.push(product);
   }
 
-  res.status(200).json(cartData);
+  res.status(200).json({success: 1, cartData});
 });
 
 // Admin endpoint to get all users (need to be modified to only allow admin users)
@@ -270,7 +271,7 @@ app.get("/products", requireAuth, async (req, res) => {
     return res.status(401).json({ error: "Unauthorized" });
   }
   const products = await prisma.product.findMany();
-  res.status(200).json(products);
+  res.status(200).json({success: 1,products});
 });
 
 // Read a product by id
@@ -283,7 +284,7 @@ app.get("/products/:id", requireAuth, async (req, res) => {
   });
 
   if (!user) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ success: 0, error: "Unauthorized" });
   }
   const { id } = req.params;
   const product = await prisma.product.findUnique({
@@ -291,7 +292,7 @@ app.get("/products/:id", requireAuth, async (req, res) => {
       id: parseInt(id),
     },
   });
-  res.status(200).json(product);
+  res.status(200).json({success: 1, product});
 });
 
 // Read a product by brand
@@ -304,7 +305,7 @@ app.get("/products/brand/:brand", requireAuth, async (req, res) => {
   });
 
   if (!user) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ success: 0, error: "Unauthorized" });
   }
   const { brand } = req.params;
   const products = await prisma.product.findMany({
@@ -312,7 +313,7 @@ app.get("/products/brand/:brand", requireAuth, async (req, res) => {
       brand,
     },
   });
-  res.status(200).json(products);
+  res.status(200).json({success: 1, products});
 });
 
 // Read a product by name
@@ -325,7 +326,7 @@ app.get("/products/name/:name", requireAuth, async (req, res) => {
   });
 
   if (!user) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ success: 0, error: "Unauthorized" });
   }
   const { name } = req.params;
   const products = await prisma.product.findMany({
@@ -333,7 +334,7 @@ app.get("/products/name/:name", requireAuth, async (req, res) => {
       name,
     },
   });
-  res.status(200).json(products);
+  res.status(200).json({success: 1, products});
 });
 
 
@@ -345,7 +346,7 @@ app.put("/products/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
 
   if (!brand || !name || !price || !image || !link) {
-    return res.status(400).json({ error: "Missing required fields" });
+    return res.status(400).json({ success: 0, error: "Missing required fields" });
   } else {
     const product = await prisma.product.update({
       where: {
@@ -360,7 +361,7 @@ app.put("/products/:id", requireAuth, async (req, res) => {
         category,
       },
     });
-    res.status(200).json(product);
+    res.status(200).json({success: 1, product});
   }
 });
 
@@ -371,7 +372,7 @@ app.put("/cartItem/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
 
   if (!quantity) {
-    return res.status(400).json({ error: "Missing required fields" });
+    return res.status(400).json({ success: 0, error: "Missing required fields" });
   } else {
     const cartItem = await prisma.cartItem.update({
       where: {
@@ -381,7 +382,7 @@ app.put("/cartItem/:id", requireAuth, async (req, res) => {
         quantity,
       },
     });
-    res.status(200).json(cartItem);
+    res.status(200).json({success: 1, cartItem});
   }
 });
 
@@ -392,7 +393,7 @@ app.put("/cart/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
 
   if (!total) {
-    return res.status(400).json({ error: "Missing required fields" });
+    return res.status(400).json({ success: 0, error: "Missing required fields" });
   } else {
     const cart = await prisma.cart.update({
       where: {
@@ -402,7 +403,7 @@ app.put("/cart/:id", requireAuth, async (req, res) => {
         total,
       },
     });
-    res.status(200).json(cart);
+    res.status(200).json({success: 1, cart});
   }
 });
 
@@ -416,7 +417,7 @@ app.delete("/products/:id", requireAuth, async (req, res) => {
       id: parseInt(id),
     },
   });
-  res.status(200).json(product);
+  res.status(200).json({success: 1, product});
 });
 
 // Delete a cartItem by id
@@ -428,7 +429,7 @@ app.delete("/cartItem/:id", requireAuth, async (req, res) => {
       id: parseInt(id),
     },
   });
-  res.status(200).json(cartItem);
+  res.status(200).json({success: 1, cartItem});
 });
 
 // Delete a cart by id
@@ -447,7 +448,7 @@ app.delete("/cart/:id", requireAuth, async (req, res) => {
       id: parseInt(id),
     },
   });
-  res.status(200);
+  res.status(200).json({success: 1});
 });
 
 

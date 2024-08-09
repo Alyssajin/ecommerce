@@ -15,8 +15,6 @@ export default function DisplayProduct() {
     const [id, setId] = useState("");
     const [product, setProduct] = useState();
 
-    // Need to change!
-    const [showUpdate, setShowUpdate] = useState(false);
 
     const displayAllProducts = async () => {
         try {
@@ -205,7 +203,7 @@ export default function DisplayProduct() {
             <div className='display-products-context'>
                 <h1>Products</h1>
                 {product && product.map((product) => (
-                    <div>
+                    <div key={product.id} className="product-item">
                         <h2>{product.name}</h2>
                         <p>Brand: {product.brand}</p>
                         <p>Category: {product.category}</p>

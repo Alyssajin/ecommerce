@@ -14,7 +14,7 @@ export default function UpdateProduct() {
         })
     }
 
-    const update_product = async () => {
+    const updateProduct = async () => {
 
         let productData = products;
 
@@ -49,7 +49,7 @@ export default function UpdateProduct() {
                 <input type="text" name="price" id="price" onChange={changeHanlder} value={products.price} />
                 <label htmlFor="link">Link</label>
                 <input type="text" name="link" id="link" onChange={changeHanlder} value={products.link} />
-                <button onClick={update_product}>Update Product</button>
+                <button onClick={updateProduct}>Update Product</button>
             </div>
         </div>
 

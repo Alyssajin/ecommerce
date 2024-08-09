@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useAuthToken } from '../../AuthTokenContext'
 import AddProduct from './components/AddProduct'
 import DisplayProduct from './components/DisplayProduct'
-import UpdateProduct from './components/UpdateProduct'
+import UpdateProduct from './components/UpdateDeleteProduct'
 
 const Admin = () => {
     const { accessToken } = useAuthToken();

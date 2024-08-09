@@ -2,7 +2,7 @@ import React from 'react'
 import { useAuthToken } from '../../../AuthTokenContext'
 import { useState } from 'react'
 import './DisplayProduct.css'
-import UpdateProduct from './UpdateProduct';
+import UpdateDeleteProduct from './UpdateDeleteProduct'
 
 
 export default function DisplayProduct() {
@@ -13,12 +13,10 @@ export default function DisplayProduct() {
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
     const [id, setId] = useState("");
+    const [product, setProduct] = useState();
 
     // Need to change!
     const [showUpdate, setShowUpdate] = useState(false);
-    const handleUpdate = () => {
-        setShowUpdate(true);
-    }
 
     const displayAllProducts = async () => {
         try {
@@ -33,7 +31,10 @@ export default function DisplayProduct() {
             const data = await response.json();
 
             if (data.success) {
-                console.log("Products fetched successfully:", data.products);
+                // console.log("Products fetched successfully:", data.products);
+                setProduct(data.products);
+                console.log(product);
+
             } else {
                 console.log(data.success);
                 alert("Failed to fetch products");
@@ -60,7 +61,9 @@ export default function DisplayProduct() {
             const data = await response.json();
 
             if (data.success) {
-                console.log("Products fetched successfully:", data.products);
+                setProduct(data.products);
+                console.log(product);
+
             } else {
                 console.log(data.success);
                 alert("Failed to fetch products");
@@ -86,7 +89,9 @@ export default function DisplayProduct() {
 
             const data = await response.json();
             if (data.success) {
-                console.log("Products fetched successfully:", data.products);
+                setProduct(data.products);
+                console.log(product);
+
                 if (data.products.length === 0) {
                     alert("No products found with the given name");
                 }
@@ -116,7 +121,9 @@ export default function DisplayProduct() {
             const data = await response.json();
 
             if (data.success) {
-                console.log("Products fetched successfully:", data.products);
+                setProduct(data.products);
+                console.log(product);
+
                 if (data.products.length === 0) {
                     alert("No products found with the given category");
                 }
@@ -147,6 +154,7 @@ export default function DisplayProduct() {
 
             if (data.success) {
                 console.log("Products fetched successfully:", data.product);
+                setProduct([data.product]);
             } else {
                 console.log(data.success);
                 alert("Failed to fetch products");
@@ -156,6 +164,24 @@ export default function DisplayProduct() {
             alert("An error occurred while fetching products.");
         }
     }
+    const handleDisplay = () => {
+        switch (requirement) {
+            case "brand":
+                displayProductByBrand();
+                break;
+            case "name":
+                displayProductByName();
+                break;
+            case "category":
+                displayProductByCategory();
+                break;
+            case "id":
+                displayProductById();
+                break;
+            default:
+                displayAllProducts();
+        }
+    };
 
 
     return (
@@ -174,18 +200,25 @@ export default function DisplayProduct() {
                 {requirement === "name" ? <input value={name} type="text" placeholder="Enter Product Name" onChange={(e) => setName(e.target.value)} /> : null}
                 {requirement === "category" ? <input value={category} type="text" placeholder="Enter Category" onChange={(e) => setCategory(e.target.value)} /> : null}
                 {requirement === "id" ? <input value={id} type="text" placeholder="Enter Product Id" onChange={(e) => setId(e.target.value)} /> : null}
-                <button onClick={requirement === "brand" ?
-                    displayProductByBrand : requirement === "name" ?
-                        displayProductByName : requirement === "category" ?
-                            displayProductByCategory : requirement === "id" ?
-                                displayProductById : displayAllProducts}>Display</button>
+                <button onClick={handleDisplay}>Display</button>
             </div>
-            <div className='display-products-update'>
-                {/* Display products here */}
-                <button onClick={handleUpdate}>Update Product</button>
+            <div className='display-products-context'>
+                <h1>Products</h1>
+                {product && product.map((product) => (
+                    <div>
+                        <h2>{product.name}</h2>
+                        <p>Brand: {product.brand}</p>
+                        <p>Category: {product.category}</p>
+                        <p>Price: {product.price}</p>
+                        <p>Link: {product.link}</p>
+                        <p>Image: {product.image}</p>
+                        <p>Id: {product.id}</p>
+                        <UpdateDeleteProduct product={product} />
+                    </div>
+                ))}
 
-                {/* Conditionally render the UpdateProduct component  if the user click the update button next to the product, it can update this product*/}
-                {showUpdate && <UpdateProduct />}
+
+
             </div>
 
         </div>

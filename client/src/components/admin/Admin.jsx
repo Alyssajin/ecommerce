@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useAuthToken } from '../../AuthTokenContext'
 import AddProduct from './components/AddProduct'
 import DisplayProduct from './components/DisplayProduct'
+import UpdateProduct from './components/UpdateProduct'
 
 const Admin = () => {
     const { accessToken } = useAuthToken();
@@ -26,25 +27,6 @@ const Admin = () => {
     const [action, setAction] = useState("display");
 
 
-    // Update a product in the database
-    const update_product = async () => {
-
-        let productData = products;
-
-        await fetch(`http://localhost:8000/products`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(productData)
-        })
-            .then(resp => resp.json())
-            .then((data) => { data.success ? alert("Product Updated") : alert("Failed") })
-    }
-
-
-
-
     return (
         <div className='admin'>
             <div className="admin-header">
@@ -57,8 +39,9 @@ const Admin = () => {
                     <button onClick={() => setAction("update")}>Update Product</button>
                 </div>
                 <div className='admin-action'>
-                    {action === "add" ? <AddProduct /> : null}
-                    {action === "display" ? <DisplayProduct /> : null}
+                    {action === "add" ? 
+                    <AddProduct /> : action === "display" ? 
+                    <DisplayProduct /> : null}
                 </div>
             </div>
         </div>

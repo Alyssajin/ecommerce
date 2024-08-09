@@ -337,6 +337,27 @@ app.get("/products/name/:name", requireAuth, async (req, res) => {
   res.status(200).json({success: 1, products});
 });
 
+// Read products by category
+app.get("/products/category/:category", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const user = await prisma.user.findUnique({
+    where: {
+      auth0Id,
+    },
+  });
+
+  if (!user) {
+    return res.status(401).json({ success: 0, error: "Unauthorized" });
+  }
+  const { category } = req.params;
+  const products = await prisma.product.findMany({
+    where: {
+      category,
+    },
+  });
+  res.status(200).json({success: 1, products});
+}
+);
 
 ///// UPDATE ENDPOINTS /////
 // Update a product by id

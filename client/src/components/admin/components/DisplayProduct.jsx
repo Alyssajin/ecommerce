@@ -1,6 +1,8 @@
 import React from 'react'
 import { useAuthToken } from '../../../AuthTokenContext'
 import { useState } from 'react'
+import './DisplayProduct.css'
+import UpdateProduct from './UpdateProduct';
 
 
 export default function DisplayProduct() {
@@ -11,6 +13,12 @@ export default function DisplayProduct() {
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
     const [id, setId] = useState("");
+
+    // Need to change!
+    const [showUpdate, setShowUpdate] = useState(false);
+    const handleUpdate = () => {
+        setShowUpdate(true);
+    }
 
     const displayAllProducts = async () => {
         try {
@@ -123,31 +131,31 @@ export default function DisplayProduct() {
     }
 
     const displayProductById = async () => {
-            
-            try {
-                const encodedId = encodeURIComponent(id);
-                const response = await fetch(`http://localhost:8000/products/${encodedId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${accessToken}`
-                    },
-    
-                });
-    
-                const data = await response.json();
-    
-                if (data.success) {
-                    console.log("Products fetched successfully:", data.product);
-                } else {
-                    console.log(data.success);
-                    alert("Failed to fetch products");
-                }
-            } catch (error) {
-                console.error("Error fetching products:", error);
-                alert("An error occurred while fetching products.");
+
+        try {
+            const encodedId = encodeURIComponent(id);
+            const response = await fetch(`http://localhost:8000/products/${encodedId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`
+                },
+
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log("Products fetched successfully:", data.product);
+            } else {
+                console.log(data.success);
+                alert("Failed to fetch products");
             }
+        } catch (error) {
+            console.error("Error fetching products:", error);
+            alert("An error occurred while fetching products.");
         }
+    }
 
 
     return (
@@ -166,12 +174,20 @@ export default function DisplayProduct() {
                 {requirement === "name" ? <input value={name} type="text" placeholder="Enter Product Name" onChange={(e) => setName(e.target.value)} /> : null}
                 {requirement === "category" ? <input value={category} type="text" placeholder="Enter Category" onChange={(e) => setCategory(e.target.value)} /> : null}
                 {requirement === "id" ? <input value={id} type="text" placeholder="Enter Product Id" onChange={(e) => setId(e.target.value)} /> : null}
-                <button onClick={requirement === "brand" ? 
-                    displayProductByBrand : requirement === "name" ? 
-                    displayProductByName : requirement === "category" ? 
-                    displayProductByCategory : requirement === "id"?
-                    displayProductById : displayAllProducts}>Display</button>
+                <button onClick={requirement === "brand" ?
+                    displayProductByBrand : requirement === "name" ?
+                        displayProductByName : requirement === "category" ?
+                            displayProductByCategory : requirement === "id" ?
+                                displayProductById : displayAllProducts}>Display</button>
             </div>
+            <div className='display-products-update'>
+                {/* Display products here */}
+                <button onClick={handleUpdate}>Update Product</button>
+
+                {/* Conditionally render the UpdateProduct component  if the user click the update button next to the product, it can update this product*/}
+                {showUpdate && <UpdateProduct />}
+            </div>
+
         </div>
     )
 }

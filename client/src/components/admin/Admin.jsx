@@ -1,28 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
-import { useAuthToken } from '../../AuthTokenContext'
 import AddProduct from './components/AddProduct'
 import DisplayProduct from './components/DisplayProduct'
-import UpdateProduct from './components/UpdateDeleteProduct'
 
 const Admin = () => {
-    const { accessToken } = useAuthToken();
-    const [products, setProducts] = useState({
-        brand: "",
-        name: "",
-        category: "women",
-        image: "",
-        price: "",
-        link: "",
-    })
-
-    const changeHanlder = (e) => {
-        e.preventDefault();
-        setProducts({
-            ...products,
-            [e.target.name]: e.target.value
-        })
-    }
 
     const [action, setAction] = useState("display");
 

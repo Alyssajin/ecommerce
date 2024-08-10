@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import './css/ShopCategory.css'
 import Item from '../components/item/Item'
-import { ShopContext } from '../context/ShopContext'
 import data from "../assets/products.json"
 import PaginationNew from '../components/pagination/PaginationNew' // PaginationNew to be finalized
 

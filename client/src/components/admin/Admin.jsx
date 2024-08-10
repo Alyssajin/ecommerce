@@ -17,7 +17,6 @@ const Admin = () => {
                 <div className="admin-options">
                     <button onClick={() => setAction("add")}>Add Product</button>
                     <button onClick={() => setAction("display")}>Display Products</button>
-                    <button onClick={() => setAction("update")}>Update Product</button>
                 </div>
                 <div className='admin-action'>
                     {action === "add" ? 

@@ -8,9 +8,12 @@ const CartContextProvider = (props) => {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    console.log('accessToken:', accessToken)
+    if (!accessToken) {
+      return;
+    }
     getDefaultCart()
   }, [accessToken])
+
 
   const getDefaultCart = () => {
     fetch('http://localhost:8000/cart', {
@@ -30,6 +33,7 @@ const CartContextProvider = (props) => {
         alert('An error occurred while fetching cart.');
       })
   }
+
 
   // const addToCart = (productId, quantity) => {
   //   fetch('http://localhost:8000/cartItem', {

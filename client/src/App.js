@@ -12,6 +12,7 @@ import Profile from './components/profile/Profile';
 import AuthDebugger from './components/authDebugger/AuthDebugger';
 import { useAuth0 } from '@auth0/auth0-react';
 import Admin from './components/admin/Admin';
+import CartItem from './components/cartItem/CartItem';
 
 
 
@@ -24,7 +25,7 @@ function App() {
     function RequireAuth({ children }) {
         const { isAuthenticated, isLoading } = useAuth0();
         if (!isAuthenticated && !isLoading) {
-            return <Navigate to="/" replace/>
+            return <Navigate to="/" replace />
         }
         return children
     }
@@ -49,6 +50,11 @@ function App() {
                         <Route path="debugger" element={<AuthDebugger />} />
                         <Route path="admin" element={<Admin />} />
                     </Route>
+                    <Route path="/cart" element={
+                        <RequireAuth>
+                            <CartItem />
+                        </RequireAuth>
+                    } />
                 </Routes>
                 <Footer />
             </BrowserRouter>

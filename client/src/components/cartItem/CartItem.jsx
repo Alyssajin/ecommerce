@@ -6,13 +6,16 @@ const CartItem = () => {
   const { cart } = useContext(CartContext)
   return (
     <div className="cartItems">
-      {cart.map(item => (
-        <div key={item.id} className="cartItem">
-          <img src={item.image} alt={item.name} />
+      {cart && cart.map((item, index) => (
+        <div key={index} className="cartItem">
           <div className="cartItemDetails">
-            <h3>{item.name}</h3>
-            <p>Price: ${item.price}</p>
-            <p>Quantity: {item.quantity}</p>
+            <div>{item.productName}</div>
+            <div>{item.price}</div>
+            <div>{item.quantity}</div>
+          </div>
+          <div className="cartItemActions">
+            <button>+</button>
+            <button>-</button>
           </div>
         </div>
       ))}

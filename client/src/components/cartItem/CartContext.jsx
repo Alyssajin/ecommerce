@@ -5,7 +5,7 @@ export const CartContext = createContext();
 
 const CartContextProvider = (props) => {
   const { accessToken } = useAuthToken()
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState();
 
   useEffect(() => {
     if (!accessToken) {
@@ -25,7 +25,9 @@ const CartContextProvider = (props) => {
     })
       .then(response => response.json())
       .then(data => {
-        setCart(data.cart);
+        console.log(data.cartData)
+        setCart(data.cartData);
+
 
       })
       .catch(error => {

@@ -225,11 +225,20 @@ app.get("/cart", requireAuth, async (req, res) => {
     return res.status(401).json({success: 0, error: "Unauthorized" });
   }
 
-  const cart = await prisma.cart.findFirst({
+  let cart = await prisma.cart.findFirst({
     where: {
       userId: user.id,
     },
   });
+
+  if (!cart) {
+    cart = await prisma.cart.create({
+      data: {
+        userId: user.id,
+        total: 0,
+      },
+    });
+  }
 
   const cartItems = await prisma.cartItem.findMany({
     where: {

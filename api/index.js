@@ -43,7 +43,7 @@ app.post("/verify-user", requireAuth, async (req, res) => {
   });
 
   if (user) {
-    res.status(201).json({success:1, user});
+    res.json(user);
   } else {
     const newUser = await prisma.user.create({
       data: {
@@ -53,7 +53,7 @@ app.post("/verify-user", requireAuth, async (req, res) => {
       },
     });
 
-    res.status(201).json({success:1, newUser});
+    res.json(newUser);
   }
 });
 

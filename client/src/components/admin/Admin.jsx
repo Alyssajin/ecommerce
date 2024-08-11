@@ -2,27 +2,34 @@ import React from 'react'
 import { useState } from 'react'
 import AddProduct from './components/AddProduct'
 import DisplayProduct from './components/DisplayProduct'
+import './Admin.css';
 
 const Admin = () => {
-
-    const [action, setAction] = useState("display");
-
+    const [activeTab, setActiveTab] = useState("display");
 
     return (
         <div className='admin'>
             <div className="admin-header">
                 <h1>Admin Page</h1>
             </div>
-            <div className="admin-content">
-                <div className="admin-options">
-                    <button onClick={() => setAction("add")}>Add Product</button>
-                    <button onClick={() => setAction("display")}>Display Products</button>
+            {/* changed the buttons to tabs*/}
+            <div className="admin-tabs">
+                <div
+                    className={`tab ${activeTab === "add" ? "active" : ""}`}
+                    onClick={() => setActiveTab("add")}
+                >
+                    Add Product
                 </div>
-                <div className='admin-action'>
-                    {action === "add" ? 
-                    <AddProduct /> : action === "display" ? 
-                    <DisplayProduct /> : null}
+                <div
+                    className={`tab ${activeTab === "display" ? "active" : ""}`}
+                    onClick={() => setActiveTab("display")}
+                >
+                    Display Products
                 </div>
+            </div>
+            <div className='admin-content'>
+                {activeTab === "add" && <AddProduct />}
+                {activeTab === "display" && <DisplayProduct />}
             </div>
         </div>
     )

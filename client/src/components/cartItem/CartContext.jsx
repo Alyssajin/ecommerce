@@ -35,6 +35,19 @@ const CartContextProvider = (props) => {
         alert('An error occurred while fetching cart.');
       })
   }
+
+  // products schema:
+  // {
+  //   "products": [
+  //     {
+  //       "productId": "1",
+  //       "quantity": 1
+  //     },
+  //     {
+  //       "productId": "2",
+  //       "quantity": 2
+  //     }]
+  // }
   const addToCart = (products) => {
     const cartId = cart.cartId;
     fetch(`http://localhost:8000/cart/${cartId}`, {

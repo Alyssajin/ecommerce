@@ -69,7 +69,7 @@ app.post("/products", requireAuth, async (req, res) => {
       data: {
         brand,
         name,
-        price: parseFloat(price.slice(4)),
+        price: parseFloat(price.replace(/[^\d.]/g, '')),
         image,
         link,
         category,
@@ -340,7 +340,7 @@ app.put("/products/:id", requireAuth, async (req, res) => {
       data: {
         brand,
         name,
-        price: parseFloat(price.slice(4)),
+        price: parseFloat(price.replace(/[^\d.]/g, '')),
         image,
         link,
         category,

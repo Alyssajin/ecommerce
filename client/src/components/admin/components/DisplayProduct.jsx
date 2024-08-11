@@ -185,6 +185,7 @@ export default function DisplayProduct() {
     return (
         <div className='displayProduct'>
             <div className='display-options'>
+                <span> Filter By: </span>
                 <select onChange={(e) => setRequirement(e.target.value)}>
                     <option value="all">All Products</option>
                     <option value="brand">By Brand</option>
@@ -203,13 +204,19 @@ export default function DisplayProduct() {
                 {product && product.map((product) => (
                     <div key={product.id} className="product-item">
                         <h2>{product.name}</h2>
-                        <p>Brand: {product.brand}</p>
-                        <p>Category: {product.category}</p>
-                        <p>Price: {product.price}</p>
-                        <p>Link: {product.link}</p>
-                        <p>Image: {product.image}</p>
-                        <p>Id: {product.id}</p>
-                        <UpdateDeleteProduct product={product} />
+                        <div className="product-info">
+                            <div className="product-info-text">
+                                <p><span className="field-name">Brand:</span> {product.brand}</p>
+                                <p><span className="field-name">Category:</span> {product.category}</p>
+                                <p><span className="field-name">Price:</span> {product.price}</p>
+                                <p><span className="field-name">Id:</span> {product.id}</p>
+                                <p><span className="field-name">Link:</span> <a href={product.link} target="_blank"
+                                                                                rel="noreferrer">Click to see source</a>
+                                </p>
+                            </div>
+                            <img src={product.image} alt={product.name}/>
+                        </div>
+                        <UpdateDeleteProduct product={product}/>
                     </div>
                 ))}
 

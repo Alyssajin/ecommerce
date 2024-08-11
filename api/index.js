@@ -419,7 +419,7 @@ app.put("/cartItem/:id", requireAuth, async (req, res) => {
 // Update a cart by id
 app.put("/cart/:id", requireAuth, async (req, res) => {
 
-  const { products } = req.body;
+  const { productId } = req.body;
   const { id } = req.params;
   // check if the cartId exists
   const cartId = await prisma.cart.findUnique({
@@ -430,56 +430,49 @@ app.put("/cart/:id", requireAuth, async (req, res) => {
   if (!cartId) {
     return res.status(400).json({ success: 0, error: "Cart not found" });
   }
-  // check if the products array is empty
-  if (Array.isArray(products) && products.length === 0) {
-    console.log("products", products);
+
+
+  if (!productId) {
+    console.log("productId", productId);
     return res.status(400).json({ success: 0, error: "Missing required fields" });
   }
-
-  for (const { productId, quantity } of products) {
-    if (!productId || !quantity) {
-      console.log("productId", productId);
-      return res.status(400).json({ success: 0, error: "Missing required fields" });
-    }
-    // Check if the product exists
-    const product = await prisma.product.findUnique({
-      where: {
-        id: productId,
-      },
-    });
-    if (!product) {
-      return res.status(400).json({ success: 0, error: "Product not found" });
-    }
-
-    // Find the cartItem by productId
-    let cartItem = await prisma.cartItem.findFirst({
-      where: {
-        cartId: parseInt(id),
-        productId: productId,
-      },
-    });
-
-    // If the cartItem exists, update the quantity, otherwise create a new cartItem
-    if (cartItem) {
-      cartItem = await prisma.cartItem.update({
-        where: {
-          id: cartItem.id,
-        },
-        data: {
-          quantity: cartItem.quantity + quantity,
-        },
-      });
-    } else {
-      cartItem = await prisma.cartItem.create({
-        data: {
-          quantity,
-          productId,
-          cartId: parseInt(id),
-        },
-      });
-    }
+  // Check if the product exists
+  const product = await prisma.product.findUnique({
+    where: {
+      id: productId,
+    },
+  });
+  if (!product) {
+    return res.status(400).json({ success: 0, error: "Product not found" });
   }
 
+  // Find the cartItem by productId
+  let cartItem = await prisma.cartItem.findFirst({
+    where: {
+      cartId: parseInt(id),
+      productId: productId,
+    },
+  });
+
+  // If the cartItem exists, update the quantity, otherwise create a new cartItem
+  if (cartItem) {
+    cartItem = await prisma.cartItem.update({
+      where: {
+        id: cartItem.id,
+      },
+      data: {
+        quantity: cartItem.quantity + 1,
+      },
+    });
+  } else {
+    cartItem = await prisma.cartItem.create({
+      data: {
+        quantity: 1,
+        productId,
+        cartId: parseInt(id),
+      },
+    });
+  }
 
   // Calculate the total for the cart
   const cartItems = await prisma.cartItem.findMany({

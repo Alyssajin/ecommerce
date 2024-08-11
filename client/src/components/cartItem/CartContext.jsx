@@ -14,7 +14,7 @@ const CartContextProvider = (props) => {
     getDefaultCart()
   }, [accessToken])
 
-
+  
   const getDefaultCart = () => {
     fetch('http://localhost:8000/cart', {
       method: 'GET',
@@ -36,19 +36,7 @@ const CartContextProvider = (props) => {
       })
   }
 
-  // products schema:
-  // {
-  //   "products": [
-  //     {
-  //       "productId": "1",
-  //       "quantity": 1
-  //     },
-  //     {
-  //       "productId": "2",
-  //       "quantity": 2
-  //     }]
-  // }
-  const addToCart = (products) => {
+  const addToCart = (productId) => {
     const cartId = cart.cartId;
     fetch(`http://localhost:8000/cart/${cartId}`, {
       method: 'PUT',
@@ -56,7 +44,7 @@ const CartContextProvider = (props) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`
       },
-      body: JSON.stringify(products)
+      body: JSON.stringify(productId)
     })
   }
   const contextValue = { cart, addToCart };

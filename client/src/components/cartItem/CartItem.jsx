@@ -3,14 +3,21 @@ import { CartContext } from './CartContext'
 
 
 const CartItem = () => {
-  const { cart } = useContext(CartContext)
+  const { cart, addToCart } = useContext(CartContext)
   return (
     <div className="cartItems">
+      <div className="cartItems-format-main">
+        <p>Products</p>
+        <p>Price</p>
+        <p>Quantity</p>
+        <p>Total</p>
+        <p>Remove</p>
+      </div>
       {cart && cart.map((item, index) => (
         <div key={index} className="cartItem">
           <div className="cartItemDetails">
-            <div>{item.productName}</div>
-            <div>{item.price}</div>
+            <div>{item.product.name}</div>
+            <div>{item.product.price}</div>
             <div>{item.quantity}</div>
           </div>
           <div className="cartItemActions">
@@ -19,6 +26,16 @@ const CartItem = () => {
           </div>
         </div>
       ))}
+      <div className="cartItems-down">
+        <div className="cartItems-total">
+          <p>Total</p>
+          <div>
+            <div className="cartItems-total-item">
+              <p>Subtotal</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

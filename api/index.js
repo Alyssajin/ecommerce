@@ -515,6 +515,29 @@ app.delete("/cart/:id", requireAuth, async (req, res) => {
         },
       });
     }
+    // Recalculate the cart total after item deletion or update
+    const updatedCartItems = await prisma.cartItem.findMany({
+      where: {
+        cartId: parseInt(id),
+      },
+      include: {
+        product: true, 
+      },
+    });
+
+    const updatedTotal = updatedCartItems.reduce((sum, item) => {
+      return sum + item.product.price * item.quantity;
+    }, 0);
+
+    // Update the cart with the new total
+    const updatedCart = await prisma.cart.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: {
+        total: updatedTotal,
+      },
+    });
 
     res.status(200).json({ success: 1, cartItem });
   } catch (error) {

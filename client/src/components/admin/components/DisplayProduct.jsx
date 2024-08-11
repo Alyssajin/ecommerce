@@ -184,7 +184,6 @@ export default function DisplayProduct() {
 
     return (
         <div className='displayProduct'>
-            <h2>Display Products</h2>
             <div className='display-options'>
                 <select onChange={(e) => setRequirement(e.target.value)}>
                     <option value="all">All Products</option>
@@ -201,7 +200,6 @@ export default function DisplayProduct() {
                 <button onClick={handleDisplay}>Display</button>
             </div>
             <div className='display-products-context'>
-                <h1>Products</h1>
                 {product && product.map((product) => (
                     <div key={product.id} className="product-item">
                         <h2>{product.name}</h2>
@@ -215,10 +213,7 @@ export default function DisplayProduct() {
                     </div>
                 ))}
 
-
-
             </div>
-
         </div>
     )
 }

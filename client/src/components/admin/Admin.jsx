@@ -1,32 +1,54 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddProduct from './components/AddProduct'
 import DisplayProduct from './components/DisplayProduct'
 import UploadAllProducts from './components/UploadAllProducts'
+import './Admin.css'
 
 const Admin = () => {
     const [activeTab, setActiveTab] = useState("display");
+
+
+    useEffect(() => {
+        if (activeTab === "display") {
+            const displayProductComponent = document.querySelector('.display-products-context');
+            if (displayProductComponent && displayProductComponent.firstChild) {
+                // products already displayed, no need to call handleDisplay
+            } else {
+                document.querySelector('.display-options button').click();
+            }
+        }
+    }, [activeTab]);
 
     return (
         <div className='admin'>
             <div className="admin-header">
                 <h1>Admin Page</h1>
             </div>
-            <div className="admin-content">
-                <div className="admin-options">
-                    <button onClick={() => setAction("add")}>Add Product</button>
-                    <button onClick={() => setAction("display")}>Display Products</button>
-                    <button onClick={() => setAction("upload")}>Upload All Products</button>
+            {/* changed the buttons to tabs*/}
+            <div className="admin-tabs">
+                <div
+                    className={`tab ${activeTab === "add" ? "active" : ""}`}
+                    onClick={() => setActiveTab("add")}
+                >
+                    Add Product
                 </div>
-                <div className='admin-action'>
-                    {action === "add" ? 
-                    <AddProduct /> : action === "display" ? 
-                    <DisplayProduct /> : <UploadAllProducts />}
+                <div
+                    className={`tab ${activeTab === "display" ? "active" : ""}`}
+                    onClick={() => setActiveTab("display")}
+                >
+                    Display Products
+                </div>
+                <div
+                    className={`tab ${activeTab === "upload" ? "active" : ""}`}
+                    onClick={() => setActiveTab("upload")}
+                >
+                    Upload All Products
                 </div>
             </div>
             <div className='admin-content'>
                 {activeTab === "add" && <AddProduct />}
                 {activeTab === "display" && <DisplayProduct />}
+                {activeTab === "upload" && <UploadAllProducts />}
             </div>
         </div>
     )

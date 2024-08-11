@@ -75,7 +75,7 @@ app.post("/products", requireAuth, async (req, res) => {
         category,
       },
     });
-    res.status(201).json({success:1, product});
+    res.status(201).json({ success: 1, product });
   }
 });
 
@@ -103,7 +103,7 @@ app.post("/cart", requireAuth, async (req, res) => {
       error: "Cart already exists"
     });
   }
-  
+
   const cart = await prisma.cart.create({
     data: {
       user: {
@@ -115,7 +115,7 @@ app.post("/cart", requireAuth, async (req, res) => {
 
     },
   });
-  res.status(201).json({success: 1, cart});
+  res.status(201).json({ success: 1, cart });
 });
 
 
@@ -125,7 +125,7 @@ app.post("/cartItem", requireAuth, async (req, res) => {
   const { productId, quantity } = req.body;
 
   if (!quantity || !productId) {
-    return res.status(400).json({success:0, error: "Missing required fields" });
+    return res.status(400).json({ success: 0, error: "Missing required fields" });
   } else {
     const user = await prisma.user.findUnique({
       where: {
@@ -167,7 +167,7 @@ app.post("/cartItem", requireAuth, async (req, res) => {
       },
     });
 
-    res.status(201).json({success: 1, cartItem});
+    res.status(201).json({ success: 1, cartItem });
   }
 });
 
@@ -209,7 +209,7 @@ app.get("/cartItem/:id", requireAuth, async (req, res) => {
     },
   });
 
-  res.status(200).json({success: 1, cartItem});
+  res.status(200).json({ success: 1, cartItem });
 });
 
 // get all products in cart by user id
@@ -222,7 +222,7 @@ app.get("/cart", requireAuth, async (req, res) => {
   });
 
   if (!user) {
-    return res.status(401).json({success: 0, error: "Unauthorized" });
+    return res.status(401).json({ success: 0, error: "Unauthorized" });
   }
 
   let cart = await prisma.cart.findFirst({
@@ -263,7 +263,7 @@ app.get("/cart", requireAuth, async (req, res) => {
     cartData.push(product);
   }
 
-  res.status(200).json({success: 1, cartData});
+  res.status(200).json({ success: 1, cartData });
 });
 
 // Admin endpoint to get all users (need to be modified to only allow admin users)
@@ -280,7 +280,7 @@ app.get("/products", requireAuth, async (req, res) => {
     return res.status(401).json({ error: "Unauthorized" });
   }
   const products = await prisma.product.findMany();
-  res.status(200).json({success: 1,products});
+  res.status(200).json({ success: 1, products });
 });
 
 // Read a product by id
@@ -301,7 +301,7 @@ app.get("/products/:id", requireAuth, async (req, res) => {
       id: parseInt(id),
     },
   });
-  res.status(200).json({success: 1, product});
+  res.status(200).json({ success: 1, product });
 });
 
 // Read a product by brand
@@ -322,7 +322,7 @@ app.get("/products/brand/:brand", requireAuth, async (req, res) => {
       brand,
     },
   });
-  res.status(200).json({success: 1, products});
+  res.status(200).json({ success: 1, products });
 });
 
 // Read a product by name
@@ -343,7 +343,7 @@ app.get("/products/name/:name", requireAuth, async (req, res) => {
       name,
     },
   });
-  res.status(200).json({success: 1, products});
+  res.status(200).json({ success: 1, products });
 });
 
 // Read products by category
@@ -364,7 +364,7 @@ app.get("/products/category/:category", requireAuth, async (req, res) => {
       category,
     },
   });
-  res.status(200).json({success: 1, products});
+  res.status(200).json({ success: 1, products });
 }
 );
 
@@ -391,7 +391,7 @@ app.put("/products/:id", requireAuth, async (req, res) => {
         category,
       },
     });
-    res.status(200).json({success: 1, product});
+    res.status(200).json({ success: 1, product });
   }
 });
 
@@ -412,29 +412,98 @@ app.put("/cartItem/:id", requireAuth, async (req, res) => {
         quantity,
       },
     });
-    res.status(200).json({success: 1, cartItem});
+    res.status(200).json({ success: 1, cartItem });
   }
 });
 
 // Update a cart by id
 app.put("/cart/:id", requireAuth, async (req, res) => {
-  const auth0Id = req.auth.payload.sub;
-  const { total } = req.body;
-  const { id } = req.params;
 
-  if (!total) {
+  const { products } = req.body;
+  const { id } = req.params;
+  // check if the cartId exists
+  const cartId = await prisma.cart.findUnique({
+    where: {
+      id: parseInt(id),
+    },
+  });
+  if (!cartId) {
+    return res.status(400).json({ success: 0, error: "Cart not found" });
+  }
+  // check if the products array is empty
+  if (Array.isArray(products) && products.length === 0) {
+    console.log("products", products);
     return res.status(400).json({ success: 0, error: "Missing required fields" });
-  } else {
-    const cart = await prisma.cart.update({
+  }
+
+  for (const { productId, quantity } of products) {
+    if (!productId || !quantity) {
+      console.log("productId", productId);
+      return res.status(400).json({ success: 0, error: "Missing required fields" });
+    }
+    // Check if the product exists
+    const product = await prisma.product.findUnique({
       where: {
-        id: parseInt(id),
-      },
-      data: {
-        total,
+        id: productId,
       },
     });
-    res.status(200).json({success: 1, cart});
+    if (!product) {
+      return res.status(400).json({ success: 0, error: "Product not found" });
+    }
+
+    // Find the cartItem by productId
+    let cartItem = await prisma.cartItem.findFirst({
+      where: {
+        cartId: parseInt(id),
+        productId: productId,
+      },
+    });
+
+    // If the cartItem exists, update the quantity, otherwise create a new cartItem
+    if (cartItem) {
+      cartItem = await prisma.cartItem.update({
+        where: {
+          id: cartItem.id,
+        },
+        data: {
+          quantity: cartItem.quantity + quantity,
+        },
+      });
+    } else {
+      cartItem = await prisma.cartItem.create({
+        data: {
+          quantity,
+          productId,
+          cartId: parseInt(id),
+        },
+      });
+    }
   }
+
+
+  // Calculate the total for the cart
+  const cartItems = await prisma.cartItem.findMany({
+    where: {
+      cartId: parseInt(id),
+    },
+    include: {
+      product: true, // Include the related product to access the price
+    },
+  });
+
+  const total = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+
+  // Update the cart with the new total
+  const cart = await prisma.cart.update({
+    where: {
+      id: parseInt(id),
+    },
+    data: {
+      total,
+    },
+  });
+
+  res.status(200).json({ success: 1, cart });
 });
 
 ///// DELETE ENDPOINTS /////
@@ -447,7 +516,7 @@ app.delete("/products/:id", requireAuth, async (req, res) => {
       id: parseInt(id),
     },
   });
-  res.status(200).json({success: 1, product});
+  res.status(200).json({ success: 1, product });
 });
 
 // Delete a cartItem by id
@@ -459,7 +528,7 @@ app.delete("/cartItem/:id", requireAuth, async (req, res) => {
       id: parseInt(id),
     },
   });
-  res.status(200).json({success: 1, cartItem});
+  res.status(200).json({ success: 1, cartItem });
 });
 
 // Delete a cart by id
@@ -478,7 +547,7 @@ app.delete("/cart/:id", requireAuth, async (req, res) => {
       id: parseInt(id),
     },
   });
-  res.status(200).json({success: 1});
+  res.status(200).json({ success: 1 });
 });
 
 

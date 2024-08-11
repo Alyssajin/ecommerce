@@ -249,6 +249,8 @@ app.get("/cart", requireAuth, async (req, res) => {
   let total = 0;
 
   const cartData = [];
+  const cartId = cart.id;
+
   for (let i = 0; i < cartItems.length; i++) {
     const p = await prisma.product.findUnique({
       where: {
@@ -263,7 +265,7 @@ app.get("/cart", requireAuth, async (req, res) => {
     cartData.push(product);
   }
 
-  res.status(200).json({ success: 1, cartData });
+  res.status(200).json({ success: 1, cartId: cartId, cartData });
 });
 
 // Admin endpoint to get all users (need to be modified to only allow admin users)
@@ -431,7 +433,6 @@ app.put("/cart/:id", requireAuth, async (req, res) => {
     return res.status(400).json({ success: 0, error: "Cart not found" });
   }
 
-
   if (!productId) {
     console.log("productId", productId);
     return res.status(400).json({ success: 0, error: "Missing required fields" });
@@ -528,19 +529,39 @@ app.delete("/cartItem/:id", requireAuth, async (req, res) => {
 app.delete("/cart/:id", requireAuth, async (req, res) => {
   const auth0Id = req.auth.payload.sub;
   const { id } = req.params;
+  const { productId } = req.body;
 
-  await prisma.cartItem.deleteMany({
-    where: {
-      cartId: parseInt(id),
-    },
-  });
+  try {
+    let cartItem = await prisma.cartItem.findFirst({
+      where: {
+        cartId: parseInt(id),
+        productId: productId,
+      },
+    });
 
-  await prisma.cart.delete({
-    where: {
-      id: parseInt(id),
-    },
-  });
-  res.status(200).json({ success: 1 });
+    if (!cartItem) {
+      return res.status(400).json({ success: 0, error: "Cart item not found" });
+    }
+
+    if (cartItem.quantity > 1) {
+      cartItem = await prisma.cartItem.update({
+        where: {
+          id: cartItem.id,
+        },
+        data: {
+          quantity: {
+            decrement: 1,
+          },
+        },
+      });
+    } 
+
+    res.status(200).json({ success: 1, cartItem });
+  } catch (error) {
+    console.error("Error deleting cart item:", error);
+    res.status(500).json({ success: 0, error: "An error occurred while deleting cart item" });
+  }
+
 });
 
 

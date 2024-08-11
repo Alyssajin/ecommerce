@@ -38,6 +38,8 @@ export default function UpdateProduct({product}) {
                 if (data.success) {
                     alert("Product Updated");
                     setShowUpdateModal(false); // close modal after successful update
+                    // refresh the products list
+                    document.querySelector('.display-options button').click();
                 } else {
                     alert("Failed to update product");
                 }
@@ -58,7 +60,12 @@ export default function UpdateProduct({product}) {
         })
             .then(resp => resp.json())
             .then((data) => {
-                data.success ? alert("Product Deleted") : alert("Failed to delete product");
+                if (data.success) {
+                    alert("Product Deleted");
+                    document.querySelector('.display-options button').click();
+                } else {
+                    alert("Failed to delete product");
+                }
             })
             .catch((error) => {
                 console.error("Error deleting product:", error);

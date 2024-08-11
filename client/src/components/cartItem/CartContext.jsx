@@ -15,7 +15,7 @@ const CartContextProvider = (props) => {
     getDefaultCart()
   }, [accessToken])
 
-
+  
   const getDefaultCart = () => {
     fetch('http://localhost:8000/cart', {
       method: 'GET',
@@ -44,7 +44,7 @@ const CartContextProvider = (props) => {
           : item
       );
     });
-
+    
     if (!cartId) {
       console.error('Cart not found');
       return;
@@ -67,9 +67,9 @@ const CartContextProvider = (props) => {
         item.product.id === productId && item.quantity > 0
           ? { ...item, quantity: item.quantity - 1 }
           : item
-      ).filter((item) => item.quantity > 0);
+      ).filter((item) => item.quantity > 0); 
     });
-
+    
     if (!cartId) {
       console.error('Cart not found');
       return;

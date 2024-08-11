@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useEffect } from 'react'
 import './App.css'
 import { Navbar } from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
@@ -22,12 +22,21 @@ export const DataContext = createContext(null)
 
 
 function App() {
+
     function RequireAuth({ children }) {
-        const { isAuthenticated, isLoading } = useAuth0();
-        if (!isAuthenticated && !isLoading) {
-            return <Navigate to="/" replace />
+        const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+
+        useEffect(() => {
+            if (!isAuthenticated && !isLoading) {
+                loginWithRedirect();
+            }
+        }, [isAuthenticated, isLoading, loginWithRedirect]);
+
+        if (isLoading || !isAuthenticated) {
+            return null;
         }
-        return children
+
+        return children;
     }
 
     return (

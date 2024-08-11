@@ -15,7 +15,7 @@ const CartContextProvider = (props) => {
     getDefaultCart()
   }, [accessToken])
 
-  
+
   const getDefaultCart = () => {
     fetch('http://localhost:8000/cart', {
       method: 'GET',
@@ -36,7 +36,15 @@ const CartContextProvider = (props) => {
   }
 
   const addToCart = (productId) => {
-    
+
+    setCart((prevCart) => {
+      return prevCart.map((item) =>
+        item.product.id === productId
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    });
+
     if (!cartId) {
       console.error('Cart not found');
       return;
@@ -54,13 +62,21 @@ const CartContextProvider = (props) => {
   }
 
   const removeFromCart = async (productId) => {
+    setCart((prevCart) => {
+      return prevCart.map((item) =>
+        item.product.id === productId && item.quantity > 0
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      ).filter((item) => item.quantity > 0);
+    });
+
     if (!cartId) {
       console.error('Cart not found');
       return;
     }
     const productData = { productId: productId };
 
-    const response = fetch(`http://localhost:8000/cart/${cartId}`, {
+    fetch(`http://localhost:8000/cart/${cartId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -68,10 +84,6 @@ const CartContextProvider = (props) => {
       },
       body: JSON.stringify(productData)
     })
-    if (response.success) {
-      // Update the cart state to reflect the removed item
-      setCart((prevCart) => prevCart.filter((item) => item.product.id !== productId));
-    }
   }
 
   const contextValue = { cart, getDefaultCart, addToCart, removeFromCart };

@@ -1,9 +1,9 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext} from 'react'
 import { CartContext } from './CartContext'
 
 
 const CartItem = () => {
-  const { cart, getDefaultCart, addToCart, removeFromCart } = useContext(CartContext)
+  const { cart, addToCart, removeFromCart } = useContext(CartContext)
 
   return (
     <div className="cartItems">
@@ -22,7 +22,7 @@ const CartItem = () => {
             <div>{item.quantity}</div>
           </div>
           <div className="cartItemActions">
-            <button>+</button>
+            <button onClick={()=>addToCart(item.product.id)}>+</button>
             <button onClick={()=>removeFromCart(item.product.id)}>-</button>
           </div>
         </div>

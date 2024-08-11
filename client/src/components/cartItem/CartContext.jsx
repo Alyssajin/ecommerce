@@ -53,14 +53,14 @@ const CartContextProvider = (props) => {
     })
   }
 
-  const removeFromCart = (productId) => {
+  const removeFromCart = async (productId) => {
     if (!cartId) {
       console.error('Cart not found');
       return;
     }
     const productData = { productId: productId };
 
-    fetch(`http://localhost:8000/cart/${cartId}`, {
+    const response = fetch(`http://localhost:8000/cart/${cartId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -68,6 +68,10 @@ const CartContextProvider = (props) => {
       },
       body: JSON.stringify(productData)
     })
+    if (response.success) {
+      // Update the cart state to reflect the removed item
+      setCart((prevCart) => prevCart.filter((item) => item.product.id !== productId));
+    }
   }
 
   const contextValue = { cart, getDefaultCart, addToCart, removeFromCart };

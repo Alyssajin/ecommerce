@@ -1,0 +1,94 @@
+.addProduct {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.admin-addproduct-itemfield {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.admin-product-title,
+.admin-addproduct-brand,
+.admin-addproduct-category,
+.admin-addproduct-price,
+.admin-addproduct-image,
+.admin-addproduct-link {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-product-title p,
+.admin-addproduct-brand p,
+.admin-addproduct-category p,
+.admin-addproduct-price p,
+.admin-addproduct-image p,
+.admin-addproduct-link p {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+}
+
+.admin-product-title input,
+.admin-addproduct-brand input,
+.admin-addproduct-category select,
+.admin-addproduct-price input,
+.admin-addproduct-image input,
+.admin-addproduct-link input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.admin-product-title input:focus,
+.admin-addproduct-brand input:focus,
+.admin-addproduct-category select:focus,
+.admin-addproduct-price input:focus,
+.admin-addproduct-image input:focus,
+.admin-addproduct-link input:focus {
+    border-color: #007bff;
+}
+
+.admin-addproduct-selector {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.admin-addproduct-selector:focus {
+    border-color: #007bff;
+}
+
+.admin-addproduct-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.admin-addproduct-btn:hover {
+    background-color: #0056b3;
+}
+
+.admin-addproduct-btn:focus {
+    outline: none;
+    background-color: #004085;
+}

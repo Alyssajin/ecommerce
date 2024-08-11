@@ -35,3 +35,12 @@
     margin-right: 200px;
     width: 500px;
 }
+
+.footer-disclaimer {
+    width: 80%;
+}
+
+.footer-social {
+    gap: 50px;
+    display: flex;
+}

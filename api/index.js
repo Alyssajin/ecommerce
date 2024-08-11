@@ -554,7 +554,13 @@ app.delete("/cart/:id", requireAuth, async (req, res) => {
           },
         },
       });
-    } 
+    } else {
+      await prisma.cartItem.delete({
+        where: {
+          id: cartItem.id,
+        },
+      });
+    }
 
     res.status(200).json({ success: 1, cartItem });
   } catch (error) {

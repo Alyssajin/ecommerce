@@ -3,9 +3,10 @@ import { useState } from 'react'
 import AddProduct from './components/AddProduct'
 import DisplayProduct from './components/DisplayProduct'
 import UploadAllProducts from './components/UploadAllProducts'
+import './Admin.css'
 
 const Admin = () => {
-    const [activeTab, setActiveTab] = useState("display");
+    const [action, setAction] = useState("display");
 
     return (
         <div className='admin'>

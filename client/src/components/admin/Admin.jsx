@@ -26,8 +26,8 @@ const Admin = () => {
                 </div>
             </div>
             <div className='admin-content'>
-                {activeTab === "add" && <AddProduct />}
-                {activeTab === "display" && <DisplayProduct />}
+                {action === "add" && <AddProduct />}
+                {action === "display" && <DisplayProduct />}
             </div>
         </div>
     )

@@ -3,9 +3,10 @@
     flex-direction: column;
     justify-content: space-around;
     padding: 16px;
-    box-shadow: 0 1px 3px -2px black;
+    /* removed box shadow */
     align-items: center;
-    
+    border-bottom: 1px solid #8c8686f2;
+
 }
 .nav-hr {
     width: 100%;
@@ -21,28 +22,6 @@
     border-top: 1px solid #151414f2;
 }
 
-.nav-login {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    width: 100%;
-}
-
-.nav-login-btn {
-    width: 65px;
-    height: 58px;
-    outline: none;
-    border: none;
-    font-size: 15px;
-    font-weight: 500;
-    margin-right: 30px;
-    background: white;
-    cursor: pointer;
-}
-
-.nav-login-btn:hover {
-    background: #f3f3f3;
-}
 
 .nav-header {
     position: sticky;
@@ -66,11 +45,12 @@
 .nav-search-cart {
     display: flex;
     flex-direction: row;
-    width: 20%;
+    width: auto;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 80px;
     margin-right: 70px;
+    box-sizing: border-box;
 }
 
 
@@ -84,7 +64,7 @@
 }
 
 .nav-search input {
-    width: 250px;
+    width: 180px;
     height: 40px;
     border: none;
     border-radius: 5px;
@@ -158,3 +138,32 @@
     color: red;
     cursor: pointer;
 }
+
+/* Legacy code for navbar login */
+
+/*
+.nav-login {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    width: 100%;
+}
+
+.nav-login-btn {
+    width: 65px;
+    height: 58px;
+    outline: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
+    margin-right: 30px;
+    background: white;
+    cursor: pointer;
+}
+
+.nav-login-btn:hover {
+    background: #f3f3f3;
+}
+
+
+*/

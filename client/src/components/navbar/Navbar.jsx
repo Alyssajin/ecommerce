@@ -4,36 +4,16 @@ import cart_icon from "../../assets/icons/cart.png"
 import search_icon from "../../assets/icons/search_icon.png"
 import "./Navbar.css"
 import { Link } from "react-router-dom"
-import { useAuth0 } from "@auth0/auth0-react"
 
 
 export const Navbar = () => {
     const [menu, setMenu] = useState("home");
     const menuRef = useRef();
-    // deal with user authentication
-    const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
-    const signUp = () => loginWithRedirect({ screen_hint: "signup" });
-    const logIn = () => loginWithRedirect();
-    const logOut = () => logout({ returnTo: window.location.origin });
 
 
     return (
         <div className='navbar'>
-            <div className="nav-login">
-                {!isAuthenticated ? (
-                    <div className="nav-login-buttons">
-                        <button onClick={signUp} className="nav-login-btn">Sign in</button>
-                    </div>
-                ) : (
-                    <div className="nav-logout">
-                        <div className="nav-logout-name">
-                            Hello, <Link to="/profile" className="nav-logout-name-span">{user.name}</Link>
-                        </div>
-                        <button onClick={logOut} className="nav-logout-button">Log Out</button>
-                    </div>
-                )}
-            </div>
-            <hr className="nav-hr"></hr>
+            {/*removed the horizontal line*/}
             <div className="nav-header">
                 <div className="nav-logo">
                     <div className="nav-logo-icon">
@@ -67,8 +47,9 @@ export const Navbar = () => {
                     <li onClick={() => { setMenu("men") }}><Link style={{ textDecoration: "none" }} to="/men"><span className="nav-span">Men</span></Link>{menu === "men" ? <hr className="nav-menu-hr" /> : <></>}</li>
                     <li onClick={() => { setMenu("kid") }}><Link style={{ textDecoration: "none" }} to="/kid"><span className="nav-span">Kids</span></Link>{menu === "kid" ? <hr className="nav-menu-hr" /> : <></>}</li>
                     <li onClick={() => { setMenu("sale") }}><Link style={{ textDecoration: "none" }} to="/sale"><span className="nav-span-special">Sale</span></Link>{menu === "sale" ? <hr className="nav-menu-hr" /> : <></>}</li>
+                    <li onClick={() => { setMenu("admin") }}><Link style={{ textDecoration: "none" }} to="/app/admin"><span className="nav-span-special">Admin Mode</span></Link>{menu === "admin" ? <hr className="nav-menu-hr" /> : <></>}</li>
                 </ul>
-                <hr className="nav-hr"></hr>
+            {/*removed the horizontal line*/}
             </div>
 
         </div>

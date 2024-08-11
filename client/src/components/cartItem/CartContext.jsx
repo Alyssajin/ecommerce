@@ -35,31 +35,18 @@ const CartContextProvider = (props) => {
         alert('An error occurred while fetching cart.');
       })
   }
-
-
-  // const addToCart = (productId, quantity) => {
-  //   fetch('http://localhost:8000/cartItem', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Bearer ${accessToken}`
-  //     },
-  //     body: JSON.stringify({
-  //       productId,
-  //       quantity
-  //     })
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log(data)
-  //       setCart(data.cart)
-  //     })
-  //     .catch(error => {
-  //       console.error('Error adding to cart:', error)
-  //       alert('An error occurred while adding to cart.')
-  //     })
-  // }
-  const contextValue = { cart };
+  const addToCart = (products) => {
+    const cartId = cart.cartId;
+    fetch(`http://localhost:8000/cart/${cartId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`
+      },
+      body: JSON.stringify(products)
+    })
+  }
+  const contextValue = { cart, addToCart };
   return (
     <CartContext.Provider value={contextValue}>
       {props.children}

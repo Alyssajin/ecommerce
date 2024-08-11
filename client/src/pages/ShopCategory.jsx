@@ -1,13 +1,15 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import './css/ShopCategory.css'
 import Item from '../components/item/Item'
-import data from "../assets/products.json"
+import { ShopContext } from '../context/ShopContext'
+
 import PaginationNew from '../components/pagination/PaginationNew' // PaginationNew to be finalized
 
 const ShopCategory = (props) => {
-    // const { all_products } = useContext(ShopContext)
+
     // read data from the products.json file
-    const all_products = data
+    const { all_products } = useContext(ShopContext)
+
     const PRODUCTS_PER_PAGE = 12;
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(all_products.length / PRODUCTS_PER_PAGE);

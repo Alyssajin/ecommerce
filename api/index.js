@@ -272,33 +272,13 @@ app.get("/cart", requireAuth, async (req, res) => {
 
 // Admin endpoint to get all users (need to be modified to only allow admin users)
 // Read all products and requireAuth middleware will make sure the user is authenticated
-app.get("/products", requireAuth, async (req, res) => {
-  const auth0Id = req.auth.payload.sub;
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id,
-    },
-  });
-
-  if (!user) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
+app.get("/products", async (req, res) => {
   const products = await prisma.product.findMany();
   res.status(200).json({ success: 1, products });
 });
 
 // Read a product by id
-app.get("/products/:id", requireAuth, async (req, res) => {
-  const auth0Id = req.auth.payload.sub;
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id,
-    },
-  });
-
-  if (!user) {
-    return res.status(401).json({ success: 0, error: "Unauthorized" });
-  }
+app.get("/products/:id", async (req, res) => {
   const { id } = req.params;
   const product = await prisma.product.findUnique({
     where: {
@@ -309,17 +289,7 @@ app.get("/products/:id", requireAuth, async (req, res) => {
 });
 
 // Read a product by brand
-app.get("/products/brand/:brand", requireAuth, async (req, res) => {
-  const auth0Id = req.auth.payload.sub;
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id,
-    },
-  });
-
-  if (!user) {
-    return res.status(401).json({ success: 0, error: "Unauthorized" });
-  }
+app.get("/products/brand/:brand", async (req, res) => {
   const { brand } = req.params;
   const products = await prisma.product.findMany({
     where: {
@@ -330,17 +300,8 @@ app.get("/products/brand/:brand", requireAuth, async (req, res) => {
 });
 
 // Read a product by name
-app.get("/products/name/:name", requireAuth, async (req, res) => {
-  const auth0Id = req.auth.payload.sub;
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id,
-    },
-  });
+app.get("/products/name/:name", async (req, res) => {
 
-  if (!user) {
-    return res.status(401).json({ success: 0, error: "Unauthorized" });
-  }
   const { name } = req.params;
   const products = await prisma.product.findMany({
     where: {
@@ -351,17 +312,7 @@ app.get("/products/name/:name", requireAuth, async (req, res) => {
 });
 
 // Read products by category
-app.get("/products/category/:category", requireAuth, async (req, res) => {
-  const auth0Id = req.auth.payload.sub;
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id,
-    },
-  });
-
-  if (!user) {
-    return res.status(401).json({ success: 0, error: "Unauthorized" });
-  }
+app.get("/products/category/:category", async (req, res) => {
   const { category } = req.params;
   const products = await prisma.product.findMany({
     where: {

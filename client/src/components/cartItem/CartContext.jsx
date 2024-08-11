@@ -36,14 +36,6 @@ const CartContextProvider = (props) => {
   }
 
   const addToCart = (productId) => {
-
-    setCart((prevCart) => {
-      return prevCart.map((item) =>
-        item.product.id === productId
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-    });
     
     if (!cartId) {
       console.error('Cart not found');
@@ -58,6 +50,9 @@ const CartContextProvider = (props) => {
         Authorization: `Bearer ${accessToken}`
       },
       body: JSON.stringify(productData)
+    }).then(response => response.json())
+    .then(()=>{
+      getDefaultCart()
     })
   }
 
@@ -83,6 +78,9 @@ const CartContextProvider = (props) => {
         Authorization: `Bearer ${accessToken}`
       },
       body: JSON.stringify(productData)
+    }).then(response => response.json())
+    .then(()=>{
+      getDefaultCart()
     })
   }
 

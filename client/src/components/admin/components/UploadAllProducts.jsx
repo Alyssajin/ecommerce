@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { useAuthToken } from '../../../AuthTokenContext';
 import './AddProduct.css';
+import './UploadAllProducts.css';
 
 export default function UploadAllProducts() {
     const { accessToken } = useAuthToken();
     const [product, setProduct] = useState({});
     const [fileData, setFileData] = useState(null);
+    const [fileName, setFileName] = useState(null);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
+
+        if (file) {
+            setFileName(file.name);
+        }
 
         reader.onload = (e) => {
             try {
@@ -46,6 +52,7 @@ export default function UploadAllProducts() {
                 await response.json();
             } catch (error) {
                 console.error("Error uploading product:", error);
+                alert("An error occurred while uploading products.");
             }
         }
         alert("All products uploaded successfully");
@@ -59,7 +66,12 @@ export default function UploadAllProducts() {
     return (
         <div className='uploadAllProducts'>
             <form onSubmit={handleUpload}>
-                <input type="file" name="file" id="file" accept=".json" onChange={handleFileChange} />
+                <label>
+                    <input type="file" name="file" id="file" accept=".json" onChange={handleFileChange}/>
+                    <span className="file-label-text">
+                        {fileData ? `Selected file: ${fileName}` : "Click or drag & drop JSON file here"}
+                    </span>
+                </label>
                 <button type="submit">Upload All Products</button>
             </form>
         </div>

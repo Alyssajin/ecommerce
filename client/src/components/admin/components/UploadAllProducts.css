@@ -1,0 +1,70 @@
+.uploadAllProducts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.uploadAllProducts form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.uploadAllProducts input[type="file"] {
+    display: none; /* Hide the actual file input */
+}
+
+.uploadAllProducts label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #989898;
+    border-radius: 15px;
+    font-size: 16px;
+    outline: none;
+    background-color: #f0f0f0;
+    color: #000;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    padding: 40px;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+}
+
+.uploadAllProducts label:hover {
+    border-color: #000;
+    background-color: #e0e0e0;
+}
+
+.uploadAllProducts .file-label-text {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.uploadAllProducts button {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.uploadAllProducts button:hover {
+    background-color: #000;
+    color: #fff;
+}

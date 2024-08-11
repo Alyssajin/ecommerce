@@ -6,6 +6,7 @@ export const CartContext = createContext();
 const CartContextProvider = (props) => {
   const { accessToken } = useAuthToken()
   const [cart, setCart] = useState();
+  const [cartId, setCartId] = useState();
 
   useEffect(() => {
     if (!accessToken) {
@@ -25,10 +26,8 @@ const CartContextProvider = (props) => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data.cartData)
         setCart(data.cartData);
-
-
+        setCartId(data.cartId);
       })
       .catch(error => {
         console.error('Error fetching cart:', error);
@@ -37,17 +36,41 @@ const CartContextProvider = (props) => {
   }
 
   const addToCart = (productId) => {
-    const cartId = cart.cartId;
+    
+    if (!cartId) {
+      console.error('Cart not found');
+      return;
+    }
+    const productData = { productId: productId };
+
     fetch(`http://localhost:8000/cart/${cartId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`
       },
-      body: JSON.stringify(productId)
+      body: JSON.stringify(productData)
     })
   }
-  const contextValue = { cart, addToCart };
+
+  const removeFromCart = (productId) => {
+    if (!cartId) {
+      console.error('Cart not found');
+      return;
+    }
+    const productData = { productId: productId };
+
+    fetch(`http://localhost:8000/cart/${cartId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`
+      },
+      body: JSON.stringify(productData)
+    })
+  }
+
+  const contextValue = { cart, getDefaultCart, addToCart, removeFromCart };
   return (
     <CartContext.Provider value={contextValue}>
       {props.children}

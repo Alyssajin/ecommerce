@@ -12,6 +12,7 @@ export default function AddProduct() {
         image: "",
         price: "",
         link: "",
+        description: "",
     })
 
     const changeHanlder = (e) => {
@@ -52,6 +53,7 @@ export default function AddProduct() {
                     image: "",
                     price: "",
                     link: "",
+                    description: "",
                 });
             } else {
                 console.log(data.success);

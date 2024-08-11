@@ -46,5 +46,6 @@ model Product {
   image    String?
   price    Float
   link     String?
+  description String?  @db.Text
   CartItem CartItem[]
 }

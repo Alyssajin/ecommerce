@@ -60,7 +60,7 @@ app.post("/verify-user", requireAuth, async (req, res) => {
 // Create a new product
 app.post("/products", requireAuth, async (req, res) => {
   const auth0Id = req.auth.payload.sub;
-  const { brand, name, price, image, link, category } = req.body;
+  const { brand, name, price, image, link, category, description } = req.body;
 
   if (!brand || !name || !price || !image || !link) {
     return res.status(400).json({ error: "Missing required fields" });
@@ -73,8 +73,10 @@ app.post("/products", requireAuth, async (req, res) => {
         image,
         link,
         category,
+        description
       },
     });
+    console.log("description", description);
     res.status(201).json({ success: 1, product });
   }
 });
@@ -374,7 +376,7 @@ app.get("/products/category/:category", requireAuth, async (req, res) => {
 // Update a product by id
 app.put("/products/:id", requireAuth, async (req, res) => {
   const auth0Id = req.auth.payload.sub;
-  const { brand, name, price, image, link, category } = req.body;
+  const { brand, name, price, image, link, category, description } = req.body;
   const { id } = req.params;
 
   if (!brand || !name || !price || !image || !link) {
@@ -391,6 +393,7 @@ app.put("/products/:id", requireAuth, async (req, res) => {
         image,
         link,
         category,
+        description
       },
     });
     res.status(200).json({ success: 1, product });

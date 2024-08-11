@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import AddProduct from './components/AddProduct'
 import DisplayProduct from './components/DisplayProduct'
-import './Admin.css';
+import UploadAllProducts from './components/UploadAllProducts'
 
 const Admin = () => {
     const [activeTab, setActiveTab] = useState("display");
@@ -12,19 +12,16 @@ const Admin = () => {
             <div className="admin-header">
                 <h1>Admin Page</h1>
             </div>
-            {/* changed the buttons to tabs*/}
-            <div className="admin-tabs">
-                <div
-                    className={`tab ${activeTab === "add" ? "active" : ""}`}
-                    onClick={() => setActiveTab("add")}
-                >
-                    Add Product
+            <div className="admin-content">
+                <div className="admin-options">
+                    <button onClick={() => setAction("add")}>Add Product</button>
+                    <button onClick={() => setAction("display")}>Display Products</button>
+                    <button onClick={() => setAction("upload")}>Upload All Products</button>
                 </div>
-                <div
-                    className={`tab ${activeTab === "display" ? "active" : ""}`}
-                    onClick={() => setActiveTab("display")}
-                >
-                    Display Products
+                <div className='admin-action'>
+                    {action === "add" ? 
+                    <AddProduct /> : action === "display" ? 
+                    <DisplayProduct /> : <UploadAllProducts />}
                 </div>
             </div>
             <div className='admin-content'>

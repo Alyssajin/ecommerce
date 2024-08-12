@@ -90,23 +90,13 @@ Must force login only when identity is required. For instance, an anonymous user
 - Web Accessibility (5%)
   - include LighHouse Accessibility report for at least 3 pages (score 80 min)
 - Deployment (5%)
-  - client is deployed
-  - API is deployed
-  - database is deployed"	5%
+  - client is deployed: https://ecommerce-5ri86ysl1-alyssajins-projects.vercel.app
+  - API is deployed: http://localhost:10000
+  ![alt text](image.png)
+  - database is deployed"	5%: postgresql://ecommerce_sm9t_user:TwtlI0is9crHnyRgCt12drsuFUq38mSP@dpg-cqt818aj1k6c73bven6g-a.oregon-postgres.render.com/ecommerce_sm9t
+
 - Code quality and attention to details (5%)
   - is code easy to read and understandable?
   - does variable names make sense?
   - do you see any errors in the console?"
 
-Problem:
-- fail to stick the position of nav-logo and nav-menu
-
-client:
-- navbar: nuanxin
-- hero: nuanxin
-- popular: nuanxin
-- footer.css: yuning
-- banner.css: yuning
-- pagination.css: yuning
-- shopCategory.css: yuning
-- profile

@@ -56,7 +56,9 @@ const ProductInfo = () => {
         <div className="product-info-page">
             {product ? (
                 <>
-                <h1 className="product-info-page-title">{product.name}</h1>
+                    <div className="product-info-page-title-container">
+                    <h1 className="product-info-page-title">{product.name}</h1>
+                    </div>
                 <div className="product-info-page-item">
                     <img src={product.image} alt={product.name} className="product-info-image" />
                     <div className="product-info-details">
@@ -76,7 +78,7 @@ const ProductInfo = () => {
                             </div>
                         </div>
                         {showSuccessMessage && (
-                            <div className="success-message active">
+                            <div className={`success-message ${showSuccessMessage ? 'active' : ''}`}>
                                 Item successfully added to your cart!
                             </div>
                         )}

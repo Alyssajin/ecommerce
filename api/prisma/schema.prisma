@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -48,4 +48,14 @@ model Product {
   link     String?
   description String?  @db.Text
   CartItem CartItem[]
+}
+
+generator client {
+ provider = "prisma-client-js"
+ previewFeatures = ["referentialIntegrity"]
+}
+datasource db {
+ provider = "mysql"
+ url = env("DATABASE_URL")
+ relationMode = "prisma"
 }

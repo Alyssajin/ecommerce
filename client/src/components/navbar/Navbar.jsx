@@ -56,7 +56,9 @@ export const Navbar = () => {
                     <li onClick={() => { setMenu("men") }}><Link style={{ textDecoration: "none" }} to="/men"><span className="nav-span">Men</span></Link>{menu === "men" ? <hr className="nav-menu-hr" /> : <></>}</li>
                     <li onClick={() => { setMenu("kids") }}><Link style={{ textDecoration: "none" }} to="/kids"><span className="nav-span">Kids</span></Link>{menu === "kids" ? <hr className="nav-menu-hr" /> : <></>}</li>
                     <li onClick={() => { setMenu("sale") }}><Link style={{ textDecoration: "none" }} to="/sale"><span className="nav-span-special">Sale</span></Link>{menu === "sale" ? <hr className="nav-menu-hr" /> : <></>}</li>
-                    <li onClick={() => { setMenu("admin") }}><Link style={{ textDecoration: "none" }} to="/app/admin"><span className="nav-span-special">Admin Mode</span></Link>{menu === "admin" ? <hr className="nav-menu-hr" /> : <></>}</li>
+                    {accessToken && (
+                      <li onClick={() => { setMenu("admin") }}><Link style={{ textDecoration: "none" }} to="/app/admin"><span className="nav-span-special">Admin Mode</span></Link>{menu === "admin" ? <hr className="nav-menu-hr" /> : <></>}</li>
+                    )}
                 </ul>
             {/*removed the horizontal line*/}
             </div>

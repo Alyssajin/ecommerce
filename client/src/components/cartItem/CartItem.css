@@ -68,6 +68,11 @@
   width: 60%;
   display: flex;
   align-items: center;
+  text-decoration: none;
+}
+
+.cart-item-details:hover {
+  text-decoration: underline;
 }
 
 .cart-item-quantity {

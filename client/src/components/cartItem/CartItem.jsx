@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { CartContext } from './CartContext';
-import './CartItem.css'; // Import the CSS file
+import './CartItem.css';
+import {Link} from "react-router-dom";
 
 const CartItem = () => {
   const { cart, addToCart, decreaseFromCart, removeFromCart } = useContext(CartContext);
@@ -26,13 +27,13 @@ const CartItem = () => {
       {cart && cart.map((item, index) => (
         <div key={index} className="cart-item">
 
-          <div className="cart-item-details">
-            <img src={item.product.image} alt={item.product.name} className="cart-item-image" />
-            <div className="cart-item-info">
-              <p>{item.product.name}</p>
-              <p>${item.product.price.toFixed(2)}</p>
-            </div>
-          </div>
+            <Link className="cart-item-details" to={`/shop/${item.product.id}`}>
+              <img src={item.product.image} alt={item.product.name} className="cart-item-image" />
+              <div className="cart-item-info">
+                <p>{item.product.name}</p>
+                <p>${item.product.price.toFixed(2)}</p>
+              </div>
+            </Link>
 
           <div className="cart-item-quantity">
             <button onClick={() => decreaseFromCart(item.product.id)}>-</button>

@@ -19,8 +19,9 @@
   padding: 15px;
   border-radius: 5px;
   overflow-x: auto;
-  white-space: pre-wrap; /* Wraps the text to avoid horizontal scrolling */
+  white-space: pre-wrap;
   margin-bottom: 20px;
+  word-break: break-word;
 }
 
 .auth-debugger pre code {

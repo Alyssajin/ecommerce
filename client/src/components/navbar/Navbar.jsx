@@ -1,15 +1,29 @@
-import React, { useState, useRef } from "react"
-
+import React, {useState, useContext, useRef, useEffect} from "react"
 import cart_icon from "../../assets/icons/cart.png"
 import search_icon from "../../assets/icons/search_icon.png"
 import "./Navbar.css"
 import { Link } from "react-router-dom"
+import { CartContext } from "../cartItem/CartContext"
+import { useAuthToken } from '../../AuthTokenContext'
 
 
 export const Navbar = () => {
+    const { accessToken } = useAuthToken()
     const [menu, setMenu] = useState("home");
+    const [cartCount, setCartCount] = useState(0);
     const menuRef = useRef();
+    const { cart, getCartCount, getDefaultCart } = useContext(CartContext); // Destructure the needed functions from CartContext
 
+      useEffect(() => {
+        if (!accessToken) {
+          return;
+        }
+        getDefaultCart();
+      }, [accessToken]);
+
+      useEffect(() => {
+        setCartCount(getCartCount()); // Update cart count whenever cart state changes
+      }, [cart]);
 
     return (
         <div className='navbar'>
@@ -35,7 +49,7 @@ export const Navbar = () => {
                             <Link to="/cart">
                                 <img src={cart_icon} alt="" />
                             </Link>
-                            <div className="nav-cart-count">0</div>
+                            <div className="nav-cart-count">{cartCount}</div> {/* Updated to display cart count */}
                         </div>
 
                     </div>

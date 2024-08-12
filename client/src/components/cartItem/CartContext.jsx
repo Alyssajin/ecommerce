@@ -35,6 +35,13 @@ const CartContextProvider = (props) => {
       })
   }
 
+  const getCartCount = () => {
+      if (!cart) {
+        return 0;
+      }
+      return cart.reduce((sum, item) => sum + item.quantity, 0);
+  }
+
   const addToCart = (productId) => {
     
     if (!cartId) {
@@ -76,7 +83,7 @@ const CartContextProvider = (props) => {
     })
   }
 
-  const contextValue = { cart, getDefaultCart, addToCart, removeFromCart };
+  const contextValue = { cart, getCartCount, getDefaultCart, addToCart, removeFromCart };
   return (
     <CartContext.Provider value={contextValue}>
       {props.children}

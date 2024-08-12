@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuthToken } from '../../../AuthTokenContext'
 import './UpdateDeleteProduct.css'
 
@@ -10,13 +9,17 @@ export default function UpdateProduct({product}) {
     const [showUpdateModal, setShowUpdateModal] = useState(false);
 
     useEffect(() => {
+        document.body.style.overflow = 'auto';
+    }, []);
+
+    useEffect(() => {
         setProducts({
             ...product,
             price: product.price ? `CA$ ${product.price}` : '',
         });
     }, [product]);
 
-    const changeHanlder = (e) => {
+    const changeHandler = (e) => {
         e.preventDefault();
         setProducts({
             ...products,
@@ -75,10 +78,12 @@ export default function UpdateProduct({product}) {
 
     const openUpdateModal = () => {
         setShowUpdateModal(true);
+        document.body.style.overflow = 'hidden'; // Disable background scrolling
     };
 
     const closeUpdateModal = () => {
         setShowUpdateModal(false);
+        document.body.style.overflow = 'auto'; // Re-enable background scroll
     };
 
     return (
@@ -96,17 +101,17 @@ export default function UpdateProduct({product}) {
                         <div className="update-product-form">
                             <div className="form-item">
                                 <label htmlFor="brand">Brand</label>
-                                <input type="text" name="brand" className="brand" onChange={changeHanlder}
+                                <input type="text" name="brand" className="brand" onChange={changeHandler}
                                        value={products.brand || ''}/>
                             </div>
                             <div className="form-item">
                                 <label htmlFor="name">Name</label>
-                                <input type="text" name="name" className="name" onChange={changeHanlder}
+                                <input type="text" name="name" className="name" onChange={changeHandler}
                                        value={products.name || ''}/>
                             </div>
                             <div className="form-item">
                                 <label htmlFor="category">Category</label>
-                                <select name="category" className="category" onChange={changeHanlder}
+                                <select name="category" className="category" onChange={changeHandler}
                                         value={products.category || ''}>
                                     <option value="women">Women</option>
                                     <option value="men">Men</option>
@@ -115,22 +120,22 @@ export default function UpdateProduct({product}) {
                             </div>
                             <div className="form-item">
                                 <label htmlFor="image">Image</label>
-                                <input type="text" name="image" className="image" onChange={changeHanlder}
+                                <input type="text" name="image" className="image" onChange={changeHandler}
                                        value={products.image || ''}/>
                             </div>
                             <div className="form-item">
                                 <label htmlFor="price">Price</label>
-                                <input type="text" name="price" className="price" onChange={changeHanlder}
+                                <input type="text" name="price" className="price" onChange={changeHandler}
                                        value={products.price || ''}/>
                             </div>
                             <div className="form-item">
                                 <label htmlFor="link">Link</label>
-                                <input type="text" name="link" className="link" onChange={changeHanlder}
+                                <input type="text" name="link" className="link" onChange={changeHandler}
                                        value={products.link || ''}/>
                             </div>
                             <div className="form-item">
                                 <label htmlFor="description">Description</label>
-                                <input type="text" name="description" className="description" onChange={changeHanlder}
+                                <input type="text" name="description" className="description" onChange={changeHandler}
                                        value={products.description || ''}/>
                             </div>
                         </div>

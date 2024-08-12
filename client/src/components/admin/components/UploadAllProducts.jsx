@@ -69,7 +69,7 @@ export default function UploadAllProducts() {
                 <label>
                     <input type="file" name="file" id="file" accept=".json" onChange={handleFileChange}/>
                     <span className="file-label-text">
-                        {fileData ? `Selected file: ${fileName}` : "Click to upload or drag & drop JSON file here"}
+                        {fileData ? `Selected file: ${fileName}` : "Click to upload or drag & drop JSON file here\nRecommend uploading `client/src/assests/products.json` file"}
                     </span>
                 </label>
                 <button type="submit">Upload All Products</button>

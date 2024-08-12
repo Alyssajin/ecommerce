@@ -54,6 +54,11 @@ export default function UpdateProduct({product}) {
     };
 
     const deleteProduct = async () => {
+        const confirmDelete = window.confirm(`Are you sure you want to delete "${product.name}?"`);
+        if (!confirmDelete) {
+            return; // Exit the function if the user cancels the deletion
+        }
+
         await fetch(`http://localhost:8000/products/${product.id}`, {
             method: 'DELETE',
             headers: {

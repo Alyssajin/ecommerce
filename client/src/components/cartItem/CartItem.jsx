@@ -5,6 +5,12 @@ import './CartItem.css'; // Import the CSS file
 const CartItem = () => {
   const { cart, addToCart, decreaseFromCart, removeFromCart } = useContext(CartContext);
 
+  if (!cart || cart.length === 0) {
+      return <p className="empty-cart">Your cart is empty</p>;
+  }
+
+  const cartTotal = cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
+
   return (
 
     <div className="cart-container">
@@ -43,7 +49,7 @@ const CartItem = () => {
       <div className="cart-summary">
         <div className="cart-summary-total">
           <p>Total</p>
-          <p>${cart.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2)}</p>
+          <p>${cartTotal.toFixed(2)}</p>
         </div>
       </div>
     </div>

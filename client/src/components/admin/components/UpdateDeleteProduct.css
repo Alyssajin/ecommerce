@@ -39,11 +39,11 @@
     margin-bottom: 5px;
     color: #555;
     font-weight: bold;
-    width: 100%; /* Ensure the label takes the full width */
+    width: 100%;
 }
 
 .update-product-form .form-item {
-    flex: 1 1 calc(50% - 10px); /* Each item takes 50% width minus the gap */
+    flex: 1 1 calc(50% - 10px);
     display: flex;
     flex-direction: column;
 }

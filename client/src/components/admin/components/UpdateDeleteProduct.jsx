@@ -128,6 +128,11 @@ export default function UpdateProduct({product}) {
                                 <input type="text" name="link" className="link" onChange={changeHanlder}
                                        value={products.link || ''}/>
                             </div>
+                            <div className="form-item">
+                                <label htmlFor="description">Description</label>
+                                <input type="text" name="description" className="description" onChange={changeHanlder}
+                                       value={products.description || ''}/>
+                            </div>
                         </div>
                         <button onClick={updateProduct}>Confirm</button>
                     </div>

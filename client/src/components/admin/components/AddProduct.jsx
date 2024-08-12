@@ -70,19 +70,22 @@ export default function AddProduct() {
             <div className="admin-addproduct-itemfield">
                 <div className="admin-product-title">
                     <p>Product title</p>
-                    <input value={products.name} onChange={changeHanlder} type="text" name="name" placeholder="Type Here" />
+                    <input value={products.name} onChange={changeHanlder} type="text" name="name"
+                           placeholder="Type Here"/>
                 </div>
             </div>
             <div className="admin-addproduct-itemfield">
                 <div className="admin-addproduct-brand">
                     <p>Product Brand</p>
-                    <input value={products.brand} onChange={changeHanlder} type="text" name="brand" placeholder="Type Here" />
+                    <input value={products.brand} onChange={changeHanlder} type="text" name="brand"
+                           placeholder="Type Here"/>
                 </div>
             </div>
             <div className="admin-addproduct-itemfield">
                 <div className="admin-addproduct-category">
                     <p>Product Category</p>
-                    <select value={products.category} onChange={changeHanlder} name="category" className="admin-addproduct-selector">
+                    <select value={products.category} onChange={changeHanlder} name="category"
+                            className="admin-addproduct-selector">
                         <option value="women">Women</option>
                         <option value="men">Men</option>
                         <option value="kids">Kids</option>
@@ -92,22 +95,35 @@ export default function AddProduct() {
             <div className="admin-addproduct-itemfield">
                 <div className="admin-addproduct-price">
                     <p>Product Price</p>
-                    <input value={products.price} onChange={changeHanlder} type="Number" name="price" placeholder="CA$ " />
+                    <input value={products.price} onChange={changeHanlder} type="Number" name="price"
+                           placeholder="CA$ "/>
                 </div>
             </div>
             <div className="admin-addproduct-itemfield">
                 <div className="admin-addproduct-image">
                     <p>Product Image</p>
-                    <input value={products.image} onChange={changeHanlder} type="text" name="image" placeholder="Type Here" />
+                    <input value={products.image} onChange={changeHanlder} type="text" name="image"
+                           placeholder="Type Here"/>
                 </div>
             </div>
             <div className="admin-addproduct-itemfield">
                 <div className="admin-addproduct-link">
                     <p>Product Link</p>
-                    <input value={products.link} onChange={changeHanlder} type="text" name="link" placeholder="Type Here" />
+                    <input value={products.link} onChange={changeHanlder} type="text" name="link"
+                           placeholder="Type Here"/>
                 </div>
             </div>
-            <button onClick={() => { add_product() }} className="admin-addproduct-btn">ADD</button>
+            <div className="admin-addproduct-itemfield">
+                <div className="admin-addproduct-description">
+                    <p>Product Description</p>
+                    <input value={products.description} onChange={changeHanlder} type="text" name="description"
+                           placeholder="Type Here"/>
+                </div>
+            </div>
+            <button onClick={() => {
+                add_product()
+            }} className="admin-addproduct-btn">ADD
+            </button>
         </div>
     )
 }

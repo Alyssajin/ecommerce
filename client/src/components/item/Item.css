@@ -6,6 +6,7 @@
     align-items: center;
     height: 100%;
     margin: 10px 0;
+    box-sizing: border-box; /* Ensure padding and borders are included in width/height */
 }
 
 .item p {
@@ -46,7 +47,6 @@
     font-weight: bold;
 }
 
-
 .item-add-container {
     position: absolute;
     bottom: 0;
@@ -82,4 +82,48 @@
 
 .item:hover .item-add-container {
     opacity: 1;
+}
+
+.item-success-message {
+  color: green;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+  opacity: 0; /* Start with the message hidden */
+  transition: opacity 0.5s ease-in-out; /* Transition for fade-in and fade-out */
+}
+
+.item-success-message.show {
+  opacity: 1; /* Show the message */
+}
+
+
+/* Responsive adjustments */
+
+@media (max-width: 480px) {
+    .item img {
+        width: 95%;
+        margin: auto 2.5%;
+    }
+
+    .item .item-brand {
+        font-size: 1rem;
+    }
+
+    .item .item-name {
+        max-height: 40px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 1.4rem;
+    }
+
+    .item-add-container {
+        height: 15%;
+        font-size: 1rem;
+    }
+
+    .item-add-container button {
+        font-size: 0.9rem;
+    }
 }

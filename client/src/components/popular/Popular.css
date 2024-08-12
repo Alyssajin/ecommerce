@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 100%;
+    gap: 1rem; /* Add gap between grid items for better spacing */
 }
 
 .popular-content-container {
@@ -9,16 +10,18 @@
     flex-direction: column;
     margin: 0.5rem;
     padding: 0.5rem;
+    box-sizing: border-box; /* Ensure padding and margin don't cause overflow */
 }
 
-.popular-inner-top img{
+.popular-inner-top img {
     width: 100%;
     cursor: pointer;
+    border-radius: 8px; /* Optional: Add a border-radius for a smoother look */
 }
 
 .popular-inner-middle {
     margin-left: 25px;
-    padding: 0px;
+    padding: 0;
 }
 
 .popular-inner-middle .inner-text-title {
@@ -40,6 +43,7 @@
     width: 200px;
     margin-left: 32px;
     padding: 3px;
+    box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 .popular-container a {
@@ -51,4 +55,50 @@
 
 .popular-container a:hover {
     text-decoration: underline;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 768px) {
+    .popular-container {
+        grid-template-columns: 1fr; /* Single column layout on smaller screens */
+    }
+
+    .popular-inner-middle {
+        margin-left: 10px; /* Reduce margin for smaller screens */
+    }
+
+    .popular-inner-link {
+        width: 100%; /* Make the link container full width */
+        margin-left: 0;
+    }
+
+    .popular-content-container {
+        margin: 0.5rem 0; /* Adjust margin to avoid excessive spacing on narrow screens */
+    }
+
+}
+
+@media (max-width: 480px) {
+    .popular-inner-middle .inner-text-title {
+        font-size: 14px;
+        margin: 5px;
+    }
+
+    .popular-inner-middle .inner-text-subtitle {
+        font-size: 18px;
+        margin: 5px;
+    }
+
+    .popular-inner-bottom {
+        display: flex;
+        justify-content: center;
+    }
+
+    .popular-inner-link {
+        padding: 2px;
+        font-size: 16px;
+        max-width: 300px;
+        margin: 10px;
+    }
 }

@@ -1,14 +1,13 @@
 .admin {
     padding: 20px;
     margin: 0 auto;
-    width: 100%;
+    width: 90%;
 }
 
 .admin-tabs {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    /*border-bottom: 2px solid #ddd;*/
 }
 
 .admin-content {
@@ -32,4 +31,32 @@
 
 .tab:hover {
     color: #000000;
+}
+
+
+@media screen and (max-width: 480px) {
+    .admin {
+        padding: 10px;
+    }
+
+    .admin-tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tab {
+        font-size: 20px !important;
+    }
+
+    .tab {
+        margin: 10px 0;
+    }
+
+    .dismiss-button, .exit-button {
+        font-size: 20px;
+    }
+
+    .addProduct {
+        font-size: 20px;
+    }
 }

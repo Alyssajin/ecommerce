@@ -6,6 +6,8 @@
     align-items: center;
     background-color: #f8f8f8;
     border-top: 1px solid #e0e0e0;
+    padding: 20px; /* Add padding to give some spacing on smaller screens */
+    box-sizing: border-box;
 }
 
 .footer-email-signup {
@@ -15,6 +17,9 @@
     align-items: start;
     margin-top: 20px;
     width: 100%;
+    max-width: 1200px; /* Limit the maximum width for better layout control */
+    padding: 0 20px; /* Ensure padding on smaller screens */
+    box-sizing: border-box;
 }
 
 .footer-email-signup-left {
@@ -22,11 +27,14 @@
     flex-direction: column;
     margin-left: 200px;
     width: 600px;
+    box-sizing: border-box;
 }
 
 .footer-email-signup-middle {
     display: flex;
     flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .footer-email-signup-right {
@@ -34,13 +42,134 @@
     flex-direction: column;
     margin-right: 200px;
     width: 500px;
+    box-sizing: border-box;
 }
 
 .footer-disclaimer {
     width: 80%;
+    text-align: center; /* Center the text for better readability */
+    margin-top: 20px;
 }
 
 .footer-social {
     gap: 50px;
     display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.footer-email-signup-form button {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    width: 120px;
+    font-size: 16px;
+}
+
+.footer-email-signup-form input {
+    font-size: 16px;
+    width: 150px;
+    height: 30px;
+    margin: 15px;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 1200px) {
+    .footer-email-signup-left {
+        margin-left: 100px;
+        width: 50%;
+    }
+
+    .footer-email-signup-right {
+        margin-right: 100px;
+        width: 40%;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-email-signup {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 10px;
+    }
+
+    .footer-email-signup-left,
+    .footer-email-signup-right {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-email-signup-middle {
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-disclaimer {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .footer-social {
+        gap: 20px;
+        margin-top: 20px;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 10px;
+    }
+
+    .footer-email-signup-left,
+    .footer-email-signup-right,
+    .footer-email-signup-middle {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .footer-email-signup-right label {
+        font-size: 20px !important;
+        margin-bottom: 20px;
+    }
+
+    .footer-email-signup-form input {
+        font-size: 20px;
+        width: 150px;
+        margin-right: 20px;
+    }
+
+
+    .footer-email-signup-form button {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 24px;
+    }
+
+    .footer-social {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-disclaimer {
+        font-size: 14px; /* Slightly smaller text for very small screens */
+        margin-top: 20px;
+    }
+
+    .footer-social-google, .footer-social-apple {
+        display: flex;
+        justify-content: center;
+    }
 }

@@ -109,3 +109,23 @@
     color: #333;
     text-decoration: none;
 }
+
+
+
+
+@media screen and (max-width: 480px) {
+    .update-modal-content {
+        width: 80%;
+        max-width: 300px;
+        padding: 10% 8%;
+    }
+
+    .update-product-form .form-item {
+        flex: 1 1 100%;
+    }
+
+    .update-product-form input, .update-product-form select {
+        width: 90%;
+        font-size: 20px;
+    }
+}

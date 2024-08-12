@@ -3,3 +3,10 @@
     height: auto;
     cursor: pointer;
 }
+
+
+@media (max-width: 768px) {
+    .hero-img-container img {
+        display: none;
+    }
+}

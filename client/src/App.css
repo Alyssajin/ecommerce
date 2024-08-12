@@ -1,0 +1,4 @@
+html, body {
+    min-width: 100%;
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+}

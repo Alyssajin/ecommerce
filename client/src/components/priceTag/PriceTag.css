@@ -17,3 +17,17 @@
 .price {
     color: #333;
 }
+
+
+@media (max-width: 768px) {
+
+
+    .price-tag {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 1.2em;
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+}

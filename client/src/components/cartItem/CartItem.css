@@ -1,15 +1,12 @@
 /* Container for the entire cart */
 .cart-container {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Header styling */
 .cart-header,
 .cart-item {
   display: grid;
@@ -18,7 +15,6 @@
   align-items: center;
 }
 
-/* Header text styling */
 .cart-header {
   font-weight: 600;
   color: #333;
@@ -27,7 +23,6 @@
   margin-bottom: 20px;
 }
 
-/* Cart item container styling with hover effect */
 .cart-item {
   padding: 15px 0;
   border-bottom: 1px solid #f0f0f0;
@@ -39,12 +34,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Cart item details and image styling */
-.cart-item-details {
-  display: flex;
-  align-items: center;
-}
-
 .cart-item-image {
   width: 60px;
   height: 60px;
@@ -54,7 +43,6 @@
   border: 1px solid #ddd;
 }
 
-/* Cart item info text styling */
 .cart-item-info p {
   margin: 0;
   color: #333;
@@ -65,25 +53,36 @@
   font-size: 1em;
 }
 
-/* Cart item quantity controls */
+.cart-item-details {
+  width: 60%;
+  display: flex;
+  align-items: center;
+}
+
+
 .cart-item-quantity {
+  width: 40%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* quantity button styling */
 .cart-item-quantity button {
-  background-color: #007BFF;
-  color: white;
-  border: none;
+  width: 35px;
+  height: 35px;
+  background-color: #ffffff;
+  font-size: 1.6em;
+  color: #000000;
+  border: 1px solid #000000;
   border-radius: 8px;
-  padding: 6px 12px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .cart-item-quantity button:hover {
-  background-color: #0056b3;
+  background-color: #000000;
+    color: #ffffff;
 }
 
 /* Quantity number styling */
@@ -95,6 +94,7 @@
 
 /* Cart item total styling */
 .cart-item-total {
+  width: 10%;
   text-align: center;
   color: #333;
   font-weight: 500;
@@ -102,20 +102,21 @@
 
 /* Cart item remove button styling */
 .cart-item-remove {
+  width: 10%;
   text-align: center;
 }
 
 .cart-item-remove button {
   background-color: transparent;
-  color: #FF4136;
+  color: #949494;
   border: none;
-  font-size: 1.5em;
+  font-size: 2.5em;
   cursor: pointer;
   transition: color 0.3s;
 }
 
 .cart-item-remove button:hover {
-  color: #c53030;
+  color: #1c1c1c;
 }
 
 .cart-summary {

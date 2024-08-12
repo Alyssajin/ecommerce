@@ -13,7 +13,12 @@
     max-width: 450px;
     width: 100%; /* Ensure image scales down on smaller screens */
     border-radius: 10px;
-    border: 2px solid #000;
+    transition: transform 0.3s ease;
+}
+
+.product-info-image:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
 }
 
 .product-info-details {
@@ -33,14 +38,14 @@
 }
 
 .product-info-details h3 {
-    margin-top: 25px;
-    margin-bottom: 0px;
+    padding-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
     font-size: 1.5rem;
     color: #333;
 }
-
 .product-info-details p {
-    margin-top: 0px;
+    margin-top: 0;
     font-size: 1.2rem;
     color: #555;
     text-align: center;

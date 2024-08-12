@@ -152,7 +152,15 @@ export default function DisplayProduct() {
 
             if (data.success) {
                 console.log("Products fetched successfully:", data.product);
-                setProduct([data.product]);
+                if (data.product) {
+                    setProduct([data.product]);
+                    console.log(product);
+                }
+                else {
+                    setProduct([]);
+                    alert("No product found with the given id");
+                }
+
             } else {
                 console.log(data.success);
                 alert("Failed to fetch products");

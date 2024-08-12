@@ -285,6 +285,11 @@ app.get("/products/:id", async (req, res) => {
       id: parseInt(id),
     },
   });
+
+  if (!product) {
+    return res.status(404).json({ success: 0, error: "Product with given id not found" });
+  }
+
   res.status(200).json({ success: 1, product });
 });
 

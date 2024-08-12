@@ -63,3 +63,11 @@
     font-size: 0.9em;
     color: #555;
 }
+
+.shop-category-products-empty {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 150px;
+    margin-bottom: 150px;
+}

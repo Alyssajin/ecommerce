@@ -3,7 +3,7 @@ import './css/ShopCategory.css'
 import Item from '../components/item/Item'
 import { ShopContext } from '../context/ShopContext'
 
-import PaginationNew from '../components/pagination/PaginationNew' // PaginationNew to be finalized
+import PaginationNew from '../components/pagination/Pagination' // PaginationNew to be finalized
 
 const ShopCategory = (props) => {
 
@@ -19,15 +19,11 @@ const ShopCategory = (props) => {
     // new: implemented sorting for current static data. needs to be updated for data fetched from the server
     // should we implement sorting as an API endpoint in the future?
     const [sortOption, setSortOption] = useState('default');
-    const parsePrice = (priceString) => {
-        const numericString = priceString.slice(4)
-        return parseFloat(numericString);
-    };
 
     const sortOptions = {
         default: (a, b) => a.id - b.id,
-        priceAscending: (a, b) => parsePrice(a.price) - parsePrice(b.price),
-        priceDescending: (a, b) => parsePrice(b.price) - parsePrice(a.price),
+        priceAscending: (a, b) => parseFloat(a.price) - parseFloat(b.price),
+        priceDescending: (a, b) => parseFloat(b.price) - parseFloat(a.price),
 
         // same as default
         newest: (a, b) => a.id - b.id,

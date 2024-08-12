@@ -1,87 +1,70 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useLocation, useNavigate} from 'react-router-dom';
+import "./Pagination.css"
 
 
-const Pagination = ({ fallbackPerPage, currentPage, onPageChange, totalPages }) => {
 
-    const [pagination, setPagination] = useState({
-        pageIndex: currentPage - 1,
-        pageSize: fallbackPerPage,
-    });
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+    const pageNumbers = [];
+    const maxPageNumbersToShow = 5; // Number of page numbers to show
+    const halfPageNumbersToShow = Math.floor(maxPageNumbersToShow / 2);
 
-    const location = useLocation();
-    const navigate = useNavigate();
+    let startPage = Math.max(1, currentPage - halfPageNumbersToShow);
+    let endPage = Math.min(totalPages, currentPage + halfPageNumbersToShow);
 
-    const createQueryString = useCallback(
-        (params) => {
-            const newSearchParams = new URLSearchParams(location.search);
+    if (currentPage <= halfPageNumbersToShow) {
+        endPage = Math.min(totalPages, maxPageNumbersToShow);
+    }
 
-            for (const [key, value] of Object.entries(params)) {
-                if (value === null) {
-                    newSearchParams.delete(key);
-                } else {
-                    newSearchParams.set(key, String(value));
-                }
-            }
+    if (currentPage + halfPageNumbersToShow >= totalPages) {
+        startPage = Math.max(1, totalPages - maxPageNumbersToShow + 1);
+    }
 
-            return newSearchParams.toString();
-        },
-        [location.search]
-    );
-
-    // Update pagination state when query params change
-    useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
-        const page = parseInt(searchParams.get('page'), 10) || 1;
-        const limit = parseInt(searchParams.get('limit'), 10) || fallbackPerPage;
-
-        setPagination({
-            pageIndex: page - 1,
-            pageSize: limit,
-        });
-
-        onPageChange(page);
-    }, [location.search, fallbackPerPage, onPageChange]);
-
-    // Update query params when pagination state changes
-    useEffect(() => {
-        navigate({
-            pathname: location.pathname,
-            search: createQueryString({
-                page: pagination.pageIndex + 1,
-                limit: pagination.pageSize,
-            }),
-        });
-
-        onPageChange(pagination.pageIndex + 1);
-    }, [pagination.pageIndex, pagination.pageSize, createQueryString, location.pathname, navigate, onPageChange]);
-
-    const handleNextPage = () => {
-        setPagination((prev) => ({
-            ...prev,
-            pageIndex: prev.pageIndex + 1,
-        }));
-    };
-
-    const handlePrevPage = () => {
-        setPagination((prev) => ({
-            ...prev,
-            pageIndex: Math.max(prev.pageIndex - 1, 0),
-        }));
-    };
-
+    for (let i = startPage; i <= endPage; i++) {
+        pageNumbers.push(i);
+    }
 
     return (
-        <div className='pagination'>
-            <button onClick={handlePrevPage} disabled={currentPage === 1}>
-                Previous
+        <div className="pagination">
+            <button
+                disabled={currentPage === 1}
+                onClick={() => onPageChange(1)}
+            >
+                {'<<'}
             </button>
-            <span>Page {currentPage} of {totalPages}</span>
-            <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-                Next
+
+            <button
+                disabled={currentPage === 1}
+                onClick={() => onPageChange(currentPage - 1)}
+            >
+                {'<'}
+            </button>
+
+            {pageNumbers.map((number) => (
+                <button
+                    key={number}
+                    className={number === currentPage ? 'active-page' : 'inactive-page'}
+                    onClick={() => onPageChange(number)}
+                >
+                    {number}
+                </button>
+            ))}
+
+            <button
+                disabled={currentPage === totalPages}
+                onClick={() => onPageChange(currentPage + 1)}
+            >
+                {'>'}
+            </button>
+
+            <button
+                disabled={currentPage === totalPages}
+                onClick={() => onPageChange(totalPages)}
+            >
+                {'>>'}
             </button>
         </div>
-    )
-}
+    );
+};
 
-export default Pagination
+export default Pagination;

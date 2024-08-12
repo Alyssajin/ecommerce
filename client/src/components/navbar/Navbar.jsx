@@ -1,46 +1,14 @@
-import React, {useState, useRef, useEffect} from "react"
+import React, { useState, useRef } from "react"
+
 import cart_icon from "../../assets/icons/cart.png"
 import search_icon from "../../assets/icons/search_icon.png"
 import "./Navbar.css"
 import { Link } from "react-router-dom"
-import {useAuthToken} from "../../AuthTokenContext";
 
 
 export const Navbar = () => {
-    const { accessToken } = useAuthToken()
     const [menu, setMenu] = useState("home");
-    const [cartCount, setCartCount] = useState(0); // State for cart count
     const menuRef = useRef();
-
-    // Fetch the cart data when the component mounts
-    const fetchCartData = async () => {
-        if (!accessToken) {
-            return;
-        }
-
-        try {
-            const response = await fetch(`http://localhost:8000/cart`, {
-              method: 'GET',
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              }
-            });
-
-            const data = await response.json();
-            if (data.success) {
-                // calculate the total number of items in the cart
-                const totalItems = data.cartData.reduce((sum, item) => sum + item.quantity, 0);
-                setCartCount(totalItems); // update cart count
-            }
-        } catch (error) {
-            console.error("Error fetching cart data:", error);
-        }
-    };
-
-
-    useEffect(() => {
-        fetchCartData();
-    });
 
 
     return (
@@ -67,7 +35,7 @@ export const Navbar = () => {
                             <Link to="/cart">
                                 <img src={cart_icon} alt="" />
                             </Link>
-                            <div className="nav-cart-count">{cartCount}</div> {/* Updated to display cart count */}
+                            <div className="nav-cart-count">0</div>
                         </div>
 
                     </div>

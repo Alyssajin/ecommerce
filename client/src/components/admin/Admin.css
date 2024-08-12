@@ -11,29 +11,25 @@
     /*border-bottom: 2px solid #ddd;*/
 }
 
+.admin-content {
+    width: 100%;
+}
+
 .tab {
     padding: 10px 20px;
     margin: 0 10px;
     cursor: pointer;
     font-size: 16px;
-    color: red;
+    color: #889fb7;
     border-bottom: 2px solid transparent;
     transition: border-bottom 0.3s ease, color 0.3s ease;
 }
 
 .tab.active {
-    color: #940000;
-    border-bottom: 2px solid #490000;
+    color: #2c3e50;
+    border-bottom: 2px solid #2c3e50;
 }
 
 .tab:hover {
-    color: #940000;
+    color: #000000;
 }
-
-
-/*.admin-content {*/
-/*    padding: 20px;*/
-/*    background-color: #fff;*/
-/*    border-radius: 8px;*/
-/*    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
-/*}*/

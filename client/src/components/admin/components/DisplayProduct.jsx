@@ -9,10 +9,8 @@ export default function DisplayProduct() {
     const { accessToken } = useAuthToken();
 
     const [requirement, setRequirement] = useState("all");
-    const [brandName, setBrandName] = useState("");
-    const [name, setName] = useState("");
-    const [category, setCategory] = useState("");
-    const [id, setId] = useState("");
+    const [inputValue, setInputValue] = useState("");
+    const [error, setError] = useState("");
     const [product, setProduct] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -35,24 +33,26 @@ export default function DisplayProduct() {
 
             if (data.success) {
                 if (Array.isArray(data.products)) {
-                    // Response is a list of products
                     setProduct(data.products);
                     setTotalPages(Math.ceil(data.products.length / itemsPerPage));
                 } else if (data.product) {
-                    // Response is a single product
-                    setProduct([data.product]); // Wrap the single product in an array
-                    setTotalPages(1); // Only one page since it's a single product
+                    setProduct([data.product]);
+                    setTotalPages(1);
                 } else {
-                    // No products returned
                     setProduct([]);
                     setTotalPages(1);
                 }
+            } else if (response.status === 401) {
+                alert("Unauthorized access. Please log in.");
+            } else if (response.status === 404) {
+                setProduct([]);
+                setTotalPages(1);
             } else {
-                alert("Failed to fetch products");
+                alert("An error occurred while fetching products.");
             }
         } catch (error) {
             console.error("Error fetching products:", error);
-            alert("An error occurred while fetching products.");
+            alert("Connection not successful.");
         }
     };
 
@@ -60,44 +60,44 @@ export default function DisplayProduct() {
         await fetchData(`http://localhost:8000/products`);
     };
 
-    const displayProductByBrand = async () => {
-        const encodedBrandName = encodeURIComponent(brandName);
-        await fetchData(`http://localhost:8000/products/brand/${encodedBrandName}`);
-    };
+    const displayProductByRequirement = async () => {
+        const encodedValue = encodeURIComponent(inputValue);
+        let url = `http://localhost:8000/products`;
 
-    const displayProductByName = async () => {
-        const encodedName = encodeURIComponent(name);
-        await fetchData(`http://localhost:8000/products/name/${encodedName}`);
-    };
-
-    const displayProductByCategory = async () => {
-        const encodedCategory = encodeURIComponent(category);
-        await fetchData(`http://localhost:8000/products/category/${encodedCategory}`);
-    };
-
-    const displayProductById = async () => {
-        const encodedId = encodeURIComponent(id);
-        await fetchData(`http://localhost:8000/products/${encodedId}`);
-    };
-
-    const handleDisplay = () => {
-        setCurrentPage(1); // Reset to the first page on new query
         switch (requirement) {
             case "brand":
-                displayProductByBrand();
+                url = `http://localhost:8000/products/brand/${encodedValue}`;
                 break;
             case "name":
-                displayProductByName();
+                url = `http://localhost:8000/products/name/${encodedValue}`;
                 break;
             case "category":
-                displayProductByCategory();
+                url = `http://localhost:8000/products/category/${encodedValue}`;
                 break;
             case "id":
-                displayProductById();
+                url = `http://localhost:8000/products/${encodedValue}`;
                 break;
             default:
                 displayAllProducts();
+                return;
         }
+        await fetchData(url);
+    };
+
+    const handleDisplay = () => {
+        if (requirement !== "all" && inputValue.trim() === "") {
+            setError(`${requirement.charAt(0).toUpperCase() + requirement.slice(1)} is required.`);
+            return;
+        }
+
+        setError(""); // Clear error message if input is valid
+        setCurrentPage(1); // Reset to the first page on new query
+        displayProductByRequirement();
+    };
+
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+        setError("");
     };
 
     // Get current products
@@ -120,10 +120,17 @@ export default function DisplayProduct() {
                     <option value="category">By Category</option>
                     <option value="id">By Id</option>
                 </select>
-                {requirement === "brand" && <input value={brandName} type="text" placeholder="Enter Brand Name" onChange={(e) => setBrandName(e.target.value)} />}
-                {requirement === "name" && <input value={name} type="text" placeholder="Enter Product Name" onChange={(e) => setName(e.target.value)} />}
-                {requirement === "category" && <input value={category} type="text" placeholder="Enter Category" onChange={(e) => setCategory(e.target.value)} />}
-                {requirement === "id" && <input value={id} type="text" placeholder="Enter Product Id" onChange={(e) => setId(e.target.value)} />}
+                {requirement !== "all" && (
+                    <div>
+                        <input
+                            value={inputValue}
+                            type="text"
+                            placeholder={`Enter ${requirement.charAt(0).toUpperCase() + requirement.slice(1)}`}
+                            onChange={handleInputChange}
+                        />
+                        {error && <div className="error-message">{error}</div>}
+                    </div>
+                )}
                 <button onClick={handleDisplay}>Display</button>
             </div>
 
@@ -137,11 +144,15 @@ export default function DisplayProduct() {
                                 <p><span className="field-name">Category:</span> {product.category}</p>
                                 <p><span className="field-name">Price:</span> {product.price}</p>
                                 <p><span className="field-name">Id:</span> {product.id}</p>
-                                <p><span className="field-name">Link:</span> <a href={product.link} target="_blank" rel="noreferrer">Click to see source</a></p>
+                                <p><span className="field-name">Link:</span> <a href={product.link} target="_blank"
+                                                                                rel="noreferrer">Click to see source</a>
+                                </p>
                             </div>
                             <img src={product.image} alt={product.name}/>
                         </div>
-                        <UpdateDeleteProduct product={product}/>
+                        <div className="product-actions">
+                            <UpdateDeleteProduct product={product}/>
+                        </div>
                     </div>
                 )) : <p>No products to display</p>}
             </div>

@@ -6,7 +6,7 @@ const CartItem = () => {
   const { cart, addToCart, decreaseFromCart, removeFromCart } = useContext(CartContext);
 
   if (!cart || cart.length === 0) {
-      return <p className="empty-cart">Your cart is empty</p>;
+      return <p className="empty-cart">Your cart is empty. <br/>Search for itemsor select a category to start shopping.</p>;
   }
 
   const cartTotal = cart.reduce((total, item) => total + item.product.price * item.quantity, 0);

@@ -287,7 +287,8 @@ app.get("/products/:id", async (req, res) => {
   });
 
   if (!product) {
-    return res.status(404).json({ success: 0, error: "Product with given id not found" });
+    res.status(404).json({ success: 0, error: "Product with given id not found" });
+    return;
   }
 
   res.status(200).json({ success: 1, product });

@@ -262,7 +262,7 @@ app.get("/cart", requireAuth, async (req, res) => {
     const quantity = cartItems[i].quantity;
     const t = p.price * quantity;
     total += t;
-    const product = { product: p, quantity: quantity, total: t };
+    const product = { product: p, quantity: quantity, total: t, id: cartItems[i].id };
 
     cartData.push(product);
   }

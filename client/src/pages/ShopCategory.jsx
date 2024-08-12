@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import './css/ShopCategory.css'
 import Item from '../components/item/Item'
 import { ShopContext } from '../context/ShopContext'
@@ -38,6 +38,18 @@ const ShopCategory = (props) => {
 
     const currentProducts = all_products.slice(startIndex, endIndex);
 
+    // Retrieve the exchange rate date
+    const [exchangeRateDate, setExchangeRateDate] = useState('');
+
+    useEffect(() => {
+        const storedDate = localStorage.getItem('exchangeRatesDate');
+        if (storedDate) {
+            // Convert the stored date to a local date and time
+            const localDate = new Date(storedDate).toLocaleString();
+            setExchangeRateDate(localDate);
+        }
+    }, []);
+
     return (
         <div className='shop-category'>
             <PaginationNew fallbackPerPage={PRODUCTS_PER_PAGE} currentPage={currentPage} onPageChange={setCurrentPage} totalPages={totalPages} />
@@ -63,7 +75,9 @@ const ShopCategory = (props) => {
                         <option value='nameDescending'>Z-A</option>
                     </select>
                 </div>
-                {/* employ a nav for pagination. created in the future */}
+                <div className="exchange-rate-reminder">
+                    <p>Exchange rate last updated: {exchangeRateDate}</p>
+                </div>
             </div>
             <div className="shop-category-products">
                 {currentProducts.map((item, i) => {

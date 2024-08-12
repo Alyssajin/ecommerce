@@ -13,6 +13,7 @@ import AuthDebugger from './components/authDebugger/AuthDebugger';
 import { useAuth0 } from '@auth0/auth0-react';
 import Admin from './components/admin/Admin';
 import CartItem from './components/cartItem/CartItem';
+import ProductInfo from "./components/productInfo/ProductInfo";
 
 
 
@@ -46,10 +47,16 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="new" element={<ShopCategory title="New Arrivals" category="new" />} />
                     <Route path="women" element={<ShopCategory title="Women's Clothing" category="women" />} />
+                    <Route path="men" element={<ShopCategory title="Men's Clothing" category="men" />} />
+                    <Route path="kids" element={<ShopCategory title="Kids Clothing" category="kids" />} />
+                    <Route path="sale" element={<ShopCategory title="Sale Items" category="sale" />} />
+
                     <Route path="verify-user" element={<VerifyUser />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="search" element={<ShopCategory title="Search Results" category="search" />} />
+                    <Route path="shop/:id" element={<ProductInfo />} />
 
                     {/* admin app */}
                     <Route path="app" element={

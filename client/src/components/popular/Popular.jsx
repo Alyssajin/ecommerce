@@ -60,7 +60,7 @@ const Popular = () => {
             </div>
             <div className="popular-content-container">
                 <div className="popular-inner-top">
-                    <Link to="/kid">
+                    <Link to="/kids">
                         <img src="//images.ctfassets.net/q602vtcuu3w3/3z0wxYTVPgyzgxgYpMfK6B/50db539dac40c49f5d562c5a8b40cfdb/24_JULY_HOMEPAGE_ASSETS_EM2__1_.jpg?w=710&amp;q=80&amp;fm=jpg&amp;fl=progressive" 
                             alt=" " 
                             fetchpriority="auto">
@@ -77,7 +77,7 @@ const Popular = () => {
                 </div>
                 <div className="popular-inner-bottom">
                     <div className="popular-inner-link">
-                        <a href='/kid' className="inner-btm-text">
+                        <a href='/kids' className="inner-btm-text">
                             SHOP KIDS
                         </a>
                     </div>

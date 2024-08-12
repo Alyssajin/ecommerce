@@ -54,4 +54,12 @@
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 40px;
     padding: 0 80px;
+    margin-bottom: 80px;
+}
+
+.exchange-rate-reminder {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 0.9em;
+    color: #555;
 }

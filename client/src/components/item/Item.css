@@ -1,9 +1,16 @@
 .item {
-    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
-    /*border-radius: 8px;*/
     transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    margin: 10px 0;
 }
 
+.item p {
+    margin: 5px;
+}
 
 .item-image-container {
     position: relative;
@@ -21,7 +28,8 @@
 .item .item-name,
 .item .item-price {
     text-align: center;
-    margin: 10px 0;
+    width: 100%;
+    margin: 5px 0;
 }
 
 .item .item-brand {
@@ -33,8 +41,8 @@
 .item .item-name {
     max-width: 80%;
     text-align: center;
-    margin: 10px auto;
-    font-size: 1.2rem;
+    margin: 3px auto;
+    font-size: 1.4rem;
     font-weight: bold;
 }
 

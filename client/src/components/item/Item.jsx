@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { CartContext } from '../cartItem/CartContext'
 import { useContext } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
+import PriceTag from "../priceTag/PriceTag";
 
 
 const Item = (props) => {
@@ -32,10 +33,10 @@ const Item = (props) => {
         </div>
         <div className='item-name'>
             {/*  should names be prefixed with '$'? */}
-            <p>${props.name}</p>
+            <p>{props.name}</p>
         </div>
         <div className='item-price'>
-            <p>${props.price}</p>
+            <PriceTag price={props.price} />
         </div>
     </div>
   )

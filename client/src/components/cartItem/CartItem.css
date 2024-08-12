@@ -1,13 +1,15 @@
+/* Container for the entire cart */
 .cart-container {
   width: 100%;
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Header styling */
 .cart-header,
 .cart-item {
   display: grid;
@@ -16,18 +18,28 @@
   align-items: center;
 }
 
+/* Header text styling */
 .cart-header {
-  font-weight: bold;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 10px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
   margin-bottom: 20px;
 }
 
+/* Cart item container styling with hover effect */
 .cart-item {
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
+.cart-item:hover {
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Cart item details and image styling */
 .cart-item-details {
   display: flex;
   align-items: center;
@@ -38,17 +50,22 @@
   height: 60px;
   object-fit: cover;
   margin-right: 15px;
-  border-radius: 4px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 
+/* Cart item info text styling */
 .cart-item-info p {
   margin: 0;
+  color: #333;
 }
 
 .cart-item-info p:first-child {
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 1em;
 }
 
+/* Cart item quantity controls */
 .cart-item-quantity {
   display: flex;
   align-items: center;
@@ -59,8 +76,8 @@
   background-color: #007BFF;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
+  border-radius: 8px;
+  padding: 6px 12px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -69,15 +86,21 @@
   background-color: #0056b3;
 }
 
+/* Quantity number styling */
 .cart-item-quantity p {
-  margin: 0 10px;
+  margin: 0 12px;
   font-size: 1.2em;
+  color: #333;
 }
 
+/* Cart item total styling */
 .cart-item-total {
   text-align: center;
+  color: #333;
+  font-weight: 500;
 }
 
+/* Cart item remove button styling */
 .cart-item-remove {
   text-align: center;
 }
@@ -86,7 +109,7 @@
   background-color: transparent;
   color: #FF4136;
   border: none;
-  font-size: 2em;
+  font-size: 1.5em;
   cursor: pointer;
   transition: color 0.3s;
 }
@@ -102,7 +125,8 @@
 }
 
 .cart-summary-total {
-  font-weight: bold;
-  font-size: 1.2em;
+  font-weight: 600;
+  font-size: 1.4em;
+  color: #333;
   text-align: right;
 }

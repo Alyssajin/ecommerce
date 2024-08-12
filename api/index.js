@@ -334,6 +334,37 @@ app.get("/products/category/:category", async (req, res) => {
 }
 );
 
+// Search products by name, brand, or category
+app.get("/search", async (req, res) => {
+
+  const { query } = req.query;
+
+  if (!query) {
+    return res.status(400).json({ success: 0, error: "Query parameter is required" });
+  }
+
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        OR: [
+          { name: { contains: query } },
+          { brand: { contains: query } },
+          { category: { contains: query } },
+        ],
+      },
+    });
+    console.log("products", products);
+    if (products.length === 0) {
+      return res.status(404).json({ success: 0, error: "No products found" });
+    }
+    res.status(200).json({ success: 1, products });
+  } catch (error) {
+    console.error("Error searching products:", error);
+    res.status(500).json({ success: 0, error: "An error occurred while searching for products" });
+  }
+});
+
+
 ///// UPDATE ENDPOINTS /////
 // Update a product by id
 app.put("/products/:id", requireAuth, async (req, res) => {

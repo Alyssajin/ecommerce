@@ -279,19 +279,24 @@ app.get("/products", async (req, res) => {
 
 // Read a product by id
 app.get("/products/:id", async (req, res) => {
-  const { id } = req.params;
-  const product = await prisma.product.findUnique({
-    where: {
-      id: parseInt(id),
-    },
-  });
+  try {
+    const { id } = req.params;
+      const product = await prisma.product.findUnique({
+        where: {
+          id: parseInt(id),
+        },
+      });
 
-  if (!product) {
-    res.status(404).json({ success: 0, error: "Product with given id not found" });
-    return;
+      if (!product) {
+        res.status(404).json({ success: 0, error: "Product with given id not found" });
+        return;
+      }
+
+      res.status(200).json({ success: 1, product });
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    res.status(500).json({ success: 0, error: "An error occurred while fetching product" });
   }
-
-  res.status(200).json({ success: 1, product });
 });
 
 // Read a product by brand

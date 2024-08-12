@@ -5,6 +5,7 @@ import "./Navbar.css"
 import { Link } from "react-router-dom"
 import { CartContext } from "../cartItem/CartContext"
 import { useAuthToken } from '../../AuthTokenContext'
+import NavSearch from "./SearchBox";
 
 
 export const Navbar = () => {
@@ -39,12 +40,7 @@ export const Navbar = () => {
                         </a>
                     </div>
                     <div className="nav-search-cart">
-                        <div className="nav-search">
-                            <input type="text" placeholder="Search" />
-                            <Link to="/search">
-                                <img src={search_icon} alt="" />
-                            </Link>
-                        </div>
+                        <NavSearch />
                         <div className="nav-cart">
                             <Link to="/cart">
                                 <img src={cart_icon} alt="" />

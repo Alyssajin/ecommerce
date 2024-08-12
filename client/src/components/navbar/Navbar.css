@@ -54,7 +54,7 @@
 }
 
 
-.nav-search {
+.nav-search-box {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -63,7 +63,7 @@
     border-radius: 2px;
 }
 
-.nav-search input {
+.nav-search-box input {
     width: 180px;
     height: 40px;
     border: none;
@@ -72,11 +72,11 @@
     font-size: 15px;
 }
 
-.nav-search input:focus {
+.nav-search-box input:focus {
     outline: none;
 }
 
-.nav-search img {
+.nav-search-box img {
     width: 20px;
     height: 20px;
     margin: 5px;

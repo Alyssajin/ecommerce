@@ -22,7 +22,7 @@ const SearchContextProvider = (props) => {
             } else {
                 setSearchResults([]);
                 setError("No products found.");
-                navigate(`/search?query=${encodeURIComponent(searchQuery)}`, { state: { products: [] } });
+                navigate(`/search`, { state: { products: [] } });
             }
         } catch (err) {
             console.error("Error fetching products:", err);

@@ -1,6 +1,5 @@
 import React, {useState, useContext, useRef, useEffect} from "react"
 import cart_icon from "../../assets/icons/cart.png"
-import search_icon from "../../assets/icons/search_icon.png"
 import "./Navbar.css"
 import { Link } from "react-router-dom"
 import { CartContext } from "../cartItem/CartContext"

@@ -63,7 +63,7 @@ const CartContextProvider = (props) => {
     })
   }
 
-  const removeFromCart = async (productId) => {
+  const decreaseFromCart = async (productId) => {
     if (!cartId) {
       console.error('Cart not found');
       return;
@@ -83,7 +83,27 @@ const CartContextProvider = (props) => {
     })
   }
 
-  const contextValue = { cart, getCartCount, getDefaultCart, addToCart, removeFromCart };
+const removeFromCart = async (cartItemId) => {
+    console.log('cartItemId', cartItemId)
+    if (!cartId) {
+      console.error('Cart not found');
+      return;
+    }
+
+    fetch(`http://localhost:8000/cartItem/${cartItemId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`
+      }
+    }).then(response => response.json())
+    .then(()=>{
+      getDefaultCart()
+    })
+};
+
+
+  const contextValue = { cart, getCartCount, getDefaultCart, addToCart, decreaseFromCart, removeFromCart };
   return (
     <CartContext.Provider value={contextValue}>
       {props.children}

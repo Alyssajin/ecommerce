@@ -1,44 +1,53 @@
-import React, {useContext} from 'react'
-import { CartContext } from './CartContext'
-
+import React, { useContext } from 'react';
+import { CartContext } from './CartContext';
+import './CartItem.css'; // Import the CSS file
 
 const CartItem = () => {
-  const { cart, addToCart, removeFromCart } = useContext(CartContext)
+  const { cart, addToCart, decreaseFromCart, removeFromCart } = useContext(CartContext);
 
   return (
-    <div className="cartItems">
-      <div className="cartItems-format-main">
-        <p>Products</p>
-        <p>Price</p>
+
+    <div className="cart-container">
+
+      {/*  cart headers */}
+      <div className="cart-header">
+        <p>Item</p>
         <p>Quantity</p>
         <p>Total</p>
-        <p>Remove</p>
       </div>
+
+      {/*  cart items */}
       {cart && cart.map((item, index) => (
-        <div key={index} className="cartItem">
-          <div className="cartItemDetails">
-            <div>{item.product.name}</div>
-            <div>{item.product.price}</div>
-            <div>{item.quantity}</div>
+        <div key={index} className="cart-item">
+          <div className="cart-item-details">
+            <img src={item.product.image} alt={item.product.name} className="cart-item-image" />
+            <div className="cart-item-info">
+              <p>{item.product.name}</p>
+              <p>${item.product.price.toFixed(2)}</p>
+            </div>
           </div>
-          <div className="cartItemActions">
-            <button onClick={()=>addToCart(item.product.id)}>+</button>
-            <button onClick={()=>removeFromCart(item.product.id)}>-</button>
+          <div className="cart-item-quantity">
+            <button onClick={() => decreaseFromCart(item.product.id)}>-</button>
+            <p>{item.quantity}</p>
+            <button onClick={() => addToCart(item.product.id)}>+</button>
+          </div>
+          <div className="cart-item-total">
+            <p>${(item.product.price * item.quantity).toFixed(2)}</p>
+          </div>
+          <div className="cart-item-remove">
+            <button onClick={() => removeFromCart(item.id)}>&times;</button>
           </div>
         </div>
       ))}
-      <div className="cartItems-down">
-        <div className="cartItems-total">
+
+      <div className="cart-summary">
+        <div className="cart-summary-total">
           <p>Total</p>
-          <div>
-            <div className="cartItems-total-item">
-              <p>Subtotal</p>
-            </div>
-          </div>
+          <p>${cart.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2)}</p>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CartItem;

@@ -1,0 +1,32 @@
+.auth-debugger {
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auth-debugger p {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.auth-debugger pre {
+  background-color: #333;
+  color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  white-space: pre-wrap; /* Wraps the text to avoid horizontal scrolling */
+  margin-bottom: 20px;
+}
+
+.auth-debugger pre code {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.auth-debugger div {
+  margin-bottom: 20px;
+}

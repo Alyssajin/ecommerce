@@ -1,40 +1,38 @@
-import React from 'react'
-import './AppLayout.css'
-import { useAuth0 } from '@auth0/auth0-react'
-import { Outlet, Link } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import './AppLayout.css';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Outlet } from 'react-router-dom';
 
 const AppLayout = () => {
     const { user, isLoading, logout } = useAuth0();
-    if (isLoading) {
-        return <div className='loading'>Loading...</div>
-    }
-  return (
-    <div className="app">
-        <div className="title">
-            <h1>Test App Page</h1>
-        </div>
-        <div className="header">
-            <nav className="menu">
-                <ul className="menu-list">
-                    <li>
-                        <Link to="/app/admin">Admin</Link>
-                    </li>
-                    <li>
-                        <Link to="/app/debugger">Auth Debugger</Link>
-                    </li>
-                    <li>
-                        <button className='exit-button' onClick={() => logout({ returnTo: window.location.origin })}>Log Out</button>
-                    </li>
-                </ul>
-            </nav>
-            <div>Welcome 👋 {user.name}</div>
-        </div>
-        <div className="content">
-            <Outlet />
-        </div>
-    </div>
-  )
-}
+    const [showDisclaimer, setShowDisclaimer] = useState(true); // State to control the visibility of the disclaimer
 
-export default AppLayout
+    if (isLoading) {
+        return <div className='loading'>Loading...</div>;
+    }
+
+    return (
+        <div className="app">
+            <header className="header">
+                <div className="admin-info">
+                    <div className="welcome-text">Welcome, {user.name}</div>
+                    <div className="state-text">Your current state: Admin</div>
+                </div>
+                <button className='exit-button' onClick={() => logout({ returnTo: window.location.origin })}>
+                    Log Out
+                </button>
+            </header>
+            {showDisclaimer && (
+                <div className="disclaimer">
+                    <span>This page may contain sensitive information and operations. Please use with caution.</span>
+                    <button className="dismiss-button" onClick={() => setShowDisclaimer(false)}>Dismiss</button>
+                </div>
+            )}
+            <main className="content">
+                <Outlet />
+            </main>
+        </div>
+    );
+};
+
+export default AppLayout;

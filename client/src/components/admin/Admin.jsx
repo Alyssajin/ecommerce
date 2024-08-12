@@ -3,6 +3,7 @@ import AddProduct from './components/AddProduct'
 import DisplayProduct from './components/DisplayProduct'
 import UploadAllProducts from './components/UploadAllProducts'
 import './Admin.css'
+import AuthDebugger from "../authDebugger/AuthDebugger";
 
 const Admin = () => {
     const [activeTab, setActiveTab] = useState("display");
@@ -21,9 +22,6 @@ const Admin = () => {
 
     return (
         <div className='admin'>
-            <div className="admin-header">
-                <h1>Admin Page</h1>
-            </div>
             {/* changed the buttons to tabs*/}
             <div className="admin-tabs">
                 <div
@@ -44,11 +42,18 @@ const Admin = () => {
                 >
                     Upload All Products
                 </div>
+                <div
+                    className={`tab ${activeTab === "auth" ? "active" : ""}`}
+                    onClick={() => setActiveTab("auth")}
+                >
+                    Check Current Auth
+                </div>
             </div>
             <div className='admin-content'>
                 {activeTab === "add" && <AddProduct />}
                 {activeTab === "display" && <DisplayProduct />}
                 {activeTab === "upload" && <UploadAllProducts />}
+                {activeTab === "auth" && <AuthDebugger />}
             </div>
         </div>
     )

@@ -13,7 +13,7 @@ const Banner = () => {
 
   return (
       <div className='banner'>
-          <p className='banner-text-preheading'>Limited Time Only</p>
+          <p className='btext-3xl font-bold underline'>Limited Time Only</p>
           <p className='banner-text-heading'> BDG JEANS · BUY ONE, GET ONE 50% OFF</p>
           <div className="banner-login">
               {!isAuthenticated ? (

@@ -20,23 +20,24 @@ export default function NavSearch() {
     };
 
     return (
-        <div className="nav-search">
-            <div className="nav-search-box">
+        <div className="flex flex-col md:flex-row items-center">
+            <div className="flex items-center border border-gray-300 rounded-md p-2">
                 <input
                     type="text"
                     placeholder="Search"
                     value={searchQuery}
                     onChange={handleInputChange}
                     onKeyDownCapture={handleKeyPress}
+                    className="flex-grow p-2 outline-none"
                 />
                 <img
                     src={search_icon}
                     alt="Search"
                     onClick={() => fetchSearchResults(searchQuery, navigate)}
-                    style={{ cursor: 'pointer' }}
+                    className="cursor-pointer w-6 h-6 ml-2"
                 />
             </div>
-            {error && <div className="error-message">{error}</div>}
+            {error && <div className="text-red-500 mt-2 md:mt-0 md:ml-4">{error}</div>}
         </div>
     );
 }

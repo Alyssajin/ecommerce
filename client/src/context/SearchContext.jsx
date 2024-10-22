@@ -13,7 +13,7 @@ const SearchContextProvider = (props) => {
         }
 
         try {
-            const response = await fetch(`${REACT_APP_API_URL}/search?query=${encodeURIComponent(searchQuery)}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/search?query=${encodeURIComponent(searchQuery)}`);
             const data = await response.json();
 
             if (data.success) {

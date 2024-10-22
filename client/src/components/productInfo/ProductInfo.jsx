@@ -19,7 +19,7 @@ const ProductInfo = () => {
     useEffect(() => {
         const fetchProductInfo = async () => {
             try {
-                const response = await fetch(`${REACT_APP_API_URL}/products/${id}`);
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${id}`);
                 const data = await response.json();
 
                 if (data.success) {

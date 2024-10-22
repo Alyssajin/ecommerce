@@ -34,7 +34,7 @@ export default function AddProduct() {
             return;
         }
         try {
-            const response = await fetch(`${REACT_APP_API_URL}/products`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/products`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

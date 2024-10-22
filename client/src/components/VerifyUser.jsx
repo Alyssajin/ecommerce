@@ -10,7 +10,7 @@ export default function VerifyUser() {
     async function verifyUser() {
       // make a call to our API to verify the user in our database, if it doesn't exist we'll insert it into our database
       // finally we'll redirect the user to the /app route
-      const data = await fetch(`${REACT_APP_API_URL}/verify-user`, {
+      const data = await fetch(`${process.env.REACT_APP_API_URL}/verify-user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

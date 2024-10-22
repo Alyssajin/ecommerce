@@ -6,7 +6,7 @@ const ShopContextProvider = (props) => {
     const [all_products, setAllProducts] = useState([])
     useEffect(() => {
         // fetch data from server
-        fetch(`${REACT_APP_API_URL}/products`, {
+        fetch(`${process.env.REACT_APP_API_URL}/products`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

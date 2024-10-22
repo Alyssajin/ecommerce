@@ -28,7 +28,7 @@ export default function UpdateProduct({product}) {
     }
 
     const updateProduct = async () => {
-        await fetch(`${REACT_APP_API_URL}/products/${product.id}`, {
+        await fetch(`${process.env.REACT_APP_API_URL}/products/${product.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export default function UpdateProduct({product}) {
             return; // Exit the function if the user cancels the deletion
         }
 
-        await fetch(`${REACT_APP_API_URL}/products/${product.id}`, {
+        await fetch(`${process.env.REACT_APP_API_URL}/products/${product.id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

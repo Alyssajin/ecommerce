@@ -17,7 +17,7 @@ const CartContextProvider = (props) => {
 
   
   const getDefaultCart = () => {
-    fetch(`${REACT_APP_API_URL}/cart`, {
+    fetch(`${process.env.REACT_APP_API_URL}/cart`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ const CartContextProvider = (props) => {
     }
     const productData = { productId: productId };
 
-    fetch(`${REACT_APP_API_URL}/cart/${cartId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/cart/${cartId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const CartContextProvider = (props) => {
     }
     const productData = { productId: productId };
 
-    fetch(`${REACT_APP_API_URL}/cart/${cartId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/cart/${cartId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ const removeFromCart = async (cartItemId) => {
       return;
     }
 
-    fetch(`${REACT_APP_API_URL}/cartItem/${cartItemId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/cartItem/${cartItemId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

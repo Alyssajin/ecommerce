@@ -120,7 +120,8 @@ export default function UpdateProduct({product}) {
                                         value={products.category || ''}>
                                     <option value="women">Women</option>
                                     <option value="men">Men</option>
-                                    <option value="kids">Kids</option>
+                                    <option value="new">New</option>
+                                    <option value="sale">Sale</option>
                                 </select>
                             </div>
                             <div className="form-item">

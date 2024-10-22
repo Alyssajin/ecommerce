@@ -88,7 +88,8 @@ export default function AddProduct() {
                             className="admin-addproduct-selector">
                         <option value="women">Women</option>
                         <option value="men">Men</option>
-                        <option value="kids">Kids</option>
+                        <option value="new">New</option>
+                        <option value="nsale">Sale</option>
                     </select>
                 </div>
             </div>

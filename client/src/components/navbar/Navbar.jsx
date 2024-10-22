@@ -55,7 +55,6 @@ export const Navbar = () => {
                     <li onClick={() => { setMenu("new") }}><Link style={{ textDecoration: "none" }} to="/new"><span className="text-black cursor-pointer">New</span></Link>{menu === "new" ? <hr className="nav-menu-hr" /> : <></>}</li>
                     <li onClick={() => { setMenu("women") }}><Link style={{ textDecoration: "none" }} to="/women"><span className="text-black cursor-pointer">Women</span></Link>{menu === "women" ? <hr className="nav-menu-hr" /> : <></>}</li>
                     <li onClick={() => { setMenu("men") }}><Link style={{ textDecoration: "none" }} to="/men"><span className="text-black cursor-pointer">Men</span></Link>{menu === "men" ? <hr className="nav-menu-hr" /> : <></>}</li>
-                    <li onClick={() => { setMenu("kids") }}><Link style={{ textDecoration: "none" }} to="/kids"><span className="text-black cursor-pointer">Kids</span></Link>{menu === "kids" ? <hr className="nav-menu-hr" /> : <></>}</li>
                     <li onClick={() => { setMenu("sale") }}><Link style={{ textDecoration: "none" }} to="/sale"><span className="text-red-600 cursor-pointer">Sale</span></Link>{menu === "sale" ? <hr className="nav-menu-hr" /> : <></>}</li>
                     {accessToken && (
                       <li onClick={() => { setMenu("admin") }}><Link style={{ textDecoration: "none" }} to="/app/admin"><span className="text-red-600 cursor-pointer">Admin Mode</span></Link>{menu === "admin" ? <hr className="nav-menu-hr" /> : <></>}</li>

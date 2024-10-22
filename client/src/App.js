@@ -50,9 +50,7 @@ function App() {
                     <Route path="new" element={<ShopCategory title="New Arrivals" category="new" />} />
                     <Route path="women" element={<ShopCategory title="Women's Clothing" category="women" />} />
                     <Route path="men" element={<ShopCategory title="Men's Clothing" category="men" />} />
-                    <Route path="kids" element={<ShopCategory title="Kids Clothing" category="kids" />} />
                     <Route path="sale" element={<ShopCategory title="Sale Items" category="sale" />} />
-
                     <Route path="verify-user" element={<VerifyUser />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="search" element={<ShopCategory title="Search Results" category="search" />} />

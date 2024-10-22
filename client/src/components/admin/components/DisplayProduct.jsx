@@ -57,25 +57,25 @@ export default function DisplayProduct() {
     };
 
     const displayAllProducts = async () => {
-        await fetchData(`http://localhost:8000/products`);
+        await fetchData(`${REACT_APP_API_URL}/products`);
     };
 
     const displayProductByRequirement = async () => {
         const encodedValue = encodeURIComponent(inputValue);
-        let url = `http://localhost:8000/products`;
+        let url = `${REACT_APP_API_URL}/products`;
 
         switch (requirement) {
             case "brand":
-                url = `http://localhost:8000/products/brand/${encodedValue}`;
+                url = `${REACT_APP_API_URL}/products/brand/${encodedValue}`;
                 break;
             case "name":
-                url = `http://localhost:8000/products/name/${encodedValue}`;
+                url = `${REACT_APP_API_URL}/products/name/${encodedValue}`;
                 break;
             case "category":
-                url = `http://localhost:8000/products/category/${encodedValue}`;
+                url = `${REACT_APP_API_URL}/products/category/${encodedValue}`;
                 break;
             case "id":
-                url = `http://localhost:8000/products/${encodedValue}`;
+                url = `${REACT_APP_API_URL}/products/${encodedValue}`;
                 break;
             default:
                 displayAllProducts();

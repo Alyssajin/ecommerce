@@ -1,7 +1,19 @@
 import puppeteer from "puppeteer";
 import fs from "fs";
 
+const urls = [
+    "https://www.fwrd.com/category-clothing/3699fc/?navsrc=main",
+    "https://www.fwrd.com/new-arrivals-20241021/ce52d9/?navsrc=main",
+    "https://www.fwrd.com/mens-new-arrivals-brand-this-week/613622/?navsrc=main",
+    "https://www.fwrd.com/sale-all-sale-items/54cc7b/?navsrc=main"
+]
 
+const categories = [
+    "women",
+    "new",
+    "men",
+    "sale"
+]
 async function autoScroll(page) {
     await page.evaluate(async () => {
         await new Promise((resolve) => {
@@ -33,7 +45,7 @@ let firstItem = true;
     const page = await browser.newPage();
 
     // Navigate the page to a URL
-    await page.goto('https://www.fwrd.com/category-clothing/3699fc/?navsrc=main', { waitUntil: 'networkidle0' });
+    await page.goto(urls[3], { waitUntil: 'networkidle0' });
     await autoScroll(page);
 
 
@@ -76,7 +88,7 @@ let firstItem = true;
                     price: fwrdPrice,
                     image: fwrdImage,
                     link: fwrdLink,
-                    category: "women",
+                    category: categories[3],
                     description: "Null",
                 };
                 itemsLength++;

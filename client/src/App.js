@@ -4,7 +4,7 @@ import { Navbar } from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import Home from "./pages/Home";
 import VerifyUser from "./components/VerifyUser";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Banner from './components/banner/Banner';
 import ShopCategory from './pages/ShopCategory';
 import AppLayout from './components/appLayout/AppLayout';

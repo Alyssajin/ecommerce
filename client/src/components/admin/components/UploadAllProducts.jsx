@@ -5,7 +5,6 @@ import './UploadAllProducts.css';
 
 export default function UploadAllProducts() {
     const { accessToken } = useAuthToken();
-    const [product, setProduct] = useState({});
     const [fileData, setFileData] = useState(null);
     const [fileName, setFileName] = useState(null);
 

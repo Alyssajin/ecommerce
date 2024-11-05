@@ -8,7 +8,6 @@ const Banner = () => {
     // deal with user authentication
     const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
     const signUp = () => loginWithRedirect({ screen_hint: "signup" });
-    const logIn = () => loginWithRedirect();
     const logOut = () => logout({ returnTo: window.location.origin });
 
   return (

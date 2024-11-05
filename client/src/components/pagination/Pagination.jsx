@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { useLocation, useNavigate} from 'react-router-dom';
+import React from 'react'
 import "./Pagination.css"
 
 

@@ -24,8 +24,6 @@ app.use(morgan("dev"));
 const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 
-// const auth0Id = "auth0%7C66b1643c53b0d5c39600240e";
-
 // Auth0 configuration for user roles
 const user_roles_config = (auth0Id) => {
   return {
@@ -65,11 +63,6 @@ app.post("/verify-user", requireAuth, async (req, res) => {
   const auth0Id = req.auth.payload.sub;
   const email = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/email`];
   const name = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/name`];
-  const role = await fetchUserRole(auth0Id);
-
-  if (role === 'user') {
-    return res.status(401).json({ success: 0, error: "Unauthorized" });
-  }
 
   const user = await prisma.user.findUnique({
     where: {
@@ -316,7 +309,14 @@ app.get("/cart", requireAuth, async (req, res) => {
 
 // Admin endpoint to get all users (need to be modified to only allow admin users)
 // Read all products and requireAuth middleware will make sure the user is authenticated
-app.get("/products", async (req, res) => {
+app.get("/products", requireAuth, async (req, res) => {
+  const auth0Id = req.auth.payload.sub;
+  const role = await fetchUserRole(auth0Id);
+
+  if (role === 'user') {
+    return res.status(401).json({ success: 0, error: "Unauthorized" });
+  }
+
   const products = await prisma.product.findMany();
   res.status(200).json({ success: 1, products });
 });
@@ -410,9 +410,16 @@ app.get("/search", async (req, res) => {
 
 
 ///// UPDATE ENDPOINTS /////
-// Update a product by id
+// Update a product by id (only admin users can update products)
 app.put("/products/:id", requireAuth, async (req, res) => {
   const auth0Id = req.auth.payload.sub;
+
+  const role = await fetchUserRole(auth0Id);
+
+  if (role === 'user') {
+    return res.status(401).json({ success: 0, error: "Unauthorized" });
+  }
+
   const { brand, name, price, image, link, category, description } = req.body;
   const { id } = req.params;
 
@@ -541,9 +548,14 @@ app.put("/cart/:id", requireAuth, async (req, res) => {
 });
 
 ///// DELETE ENDPOINTS /////
-// Delete a product by id
+// Delete a product by id (only admin users can delete products)
 app.delete("/products/:id", requireAuth, async (req, res) => {
   const auth0Id = req.auth.payload.sub;
+  const role = await fetchUserRole(auth0Id);
+
+  if (role === 'user') {
+    return res.status(401).json({ success: 0, error: "Unauthorized" });
+  }
   const { id } = req.params;
   const product = await prisma.product.delete({
     where: {

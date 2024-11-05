@@ -309,14 +309,7 @@ app.get("/cart", requireAuth, async (req, res) => {
 
 // Admin endpoint to get all users (need to be modified to only allow admin users)
 // Read all products and requireAuth middleware will make sure the user is authenticated
-app.get("/products", requireAuth, async (req, res) => {
-  const auth0Id = req.auth.payload.sub;
-  const role = await fetchUserRole(auth0Id);
-
-  if (role === 'user') {
-    return res.status(401).json({ success: 0, error: "Unauthorized" });
-  }
-
+app.get("/products", async (req, res) => {
   const products = await prisma.product.findMany();
   res.status(200).json({ success: 1, products });
 });

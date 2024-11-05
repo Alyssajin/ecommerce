@@ -4,7 +4,7 @@ import { Navbar } from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import Home from "./pages/Home";
 import VerifyUser from "./components/VerifyUser";
-import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Banner from './components/banner/Banner';
 import ShopCategory from './pages/ShopCategory';
 import AppLayout from './components/appLayout/AppLayout';
@@ -24,6 +24,8 @@ export const DataContext = createContext(null)
 
 function App() {
 
+
+
     function RequireAuth({ children }) {
         const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
@@ -31,14 +33,31 @@ function App() {
             if (!isAuthenticated && !isLoading) {
                 loginWithRedirect();
             }
+
         }, [isAuthenticated, isLoading, loginWithRedirect]);
 
         if (isLoading || !isAuthenticated) {
             return null;
         }
-
         return children;
     }
+
+    function RequireAdmin({ children }) {
+        const { user } = useAuth0();
+        const userRoles = user ? user["https://api.ecommerce/roles"][0] : null;
+
+        if (userRoles === 'Admin') {
+            return children;
+        } else {
+            console.log(user);
+        }
+
+        return null;
+    }
+    const { user } = useAuth0();
+    const userRoles = user ? user["https://api.ecommerce/roles"][0] : null;
+
+
 
     return (
         <div>
@@ -56,17 +75,25 @@ function App() {
                     <Route path="search" element={<ShopCategory title="Search Results" category="search" />} />
                     <Route path="shop/:id" element={<ProductInfo />} />
 
-                    {/* admin app */}
-                    <Route path="app" element={
-                        <RequireAuth>
-                            <AppLayout />
-                        </RequireAuth>
-                    }
-                    >
-                        <Route index element={<Profile />} />
-                        <Route path="debugger" element={<AuthDebugger />} />
-                        <Route path="admin" element={<Admin />} />
-                    </Route>
+                    {userRoles === 'Admin' && (
+                        <>
+                            <Route path="app" element={
+                                <RequireAuth>
+                                    <AppLayout />
+                                </RequireAuth>
+                            }>
+                                <Route index element={<Profile />} />
+                                <Route path="debugger" element={<AuthDebugger />} />
+
+                                <Route path="admin" element={
+                                    <RequireAdmin>
+                                        <Admin />
+                                    </RequireAdmin>} />
+                            </Route>
+                        </>
+                    )}
+
+
                     <Route path="/cart" element={
                         <RequireAuth>
                             <CartItem />

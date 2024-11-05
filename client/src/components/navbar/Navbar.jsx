@@ -5,10 +5,13 @@ import { Link } from "react-router-dom"
 import { CartContext } from "../cartItem/CartContext"
 import { useAuthToken } from '../../AuthTokenContext'
 import NavSearch from "./SearchBox";
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 export const Navbar = () => {
-    const { accessToken } = useAuthToken()
+    const { accessToken } = useAuthToken();
+    const { user } = useAuth0();
+    const isAdmin = user ? user["https://api.ecommerce/roles"][0] === 'Admin' : false;
     const [menu, setMenu] = useState("home");
     const [cartCount, setCartCount] = useState(0);
     const menuRef = useRef();
@@ -56,7 +59,7 @@ export const Navbar = () => {
                     <li onClick={() => { setMenu("women") }}><Link style={{ textDecoration: "none" }} to="/women"><span className="text-black cursor-pointer">Women</span></Link>{menu === "women" ? <hr className="nav-menu-hr" /> : <></>}</li>
                     <li onClick={() => { setMenu("men") }}><Link style={{ textDecoration: "none" }} to="/men"><span className="text-black cursor-pointer">Men</span></Link>{menu === "men" ? <hr className="nav-menu-hr" /> : <></>}</li>
                     <li onClick={() => { setMenu("sale") }}><Link style={{ textDecoration: "none" }} to="/sale"><span className="text-red-600 cursor-pointer">Sale</span></Link>{menu === "sale" ? <hr className="nav-menu-hr" /> : <></>}</li>
-                    {accessToken && (
+                    {isAdmin && (
                       <li onClick={() => { setMenu("admin") }}><Link style={{ textDecoration: "none" }} to="/app/admin"><span className="text-red-600 cursor-pointer">Admin Mode</span></Link>{menu === "admin" ? <hr className="nav-menu-hr" /> : <></>}</li>
                     )}
                 </ul>

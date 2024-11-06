@@ -17,10 +17,7 @@ import ProductInfo from "./components/productInfo/ProductInfo";
 
 
 
-
 export const DataContext = createContext(null)
-
-
 
 function App() {
 
@@ -44,7 +41,7 @@ function App() {
 
     function RequireAdmin({ children }) {
         const { user } = useAuth0();
-        const userRoles = user ? user["https://api.ecommerce/roles"][0] : null;
+        const userRoles = user ? user[process.env.REACT_APP_AUTH0_NAME_SPACE][0] : null;
 
         if (userRoles === 'Admin') {
             return children;
@@ -55,7 +52,7 @@ function App() {
         return null;
     }
     const { user } = useAuth0();
-    const userRoles = user ? user["https://api.ecommerce/roles"][0] : null;
+    const userRoles = user ? user[process.env.REACT_APP_AUTH0_NAME_SPACE][0] : null;
 
 
 
